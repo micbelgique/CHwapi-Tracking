@@ -1,1 +1,1 @@
-# DevCamp2016-Team9
+# DevCamp2016-Muffin Bandits
