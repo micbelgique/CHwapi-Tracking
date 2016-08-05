@@ -26,13 +26,18 @@ namespace ApiTracking.Models
         public int GateID { get; set; }
         public int UserID { get; set; }
         public byte Status { get; set; }
-    
+
+        [System.Runtime.Serialization.IgnoreDataMember]
         public virtual Box Box { get; set; }
+        [System.Runtime.Serialization.IgnoreDataMember]
         public virtual Gate Gate { get; set; }
+        [System.Runtime.Serialization.IgnoreDataMember]
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [System.Runtime.Serialization.IgnoreDataMember]
         public virtual ICollection<TrackedItem> TrackedItem { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [System.Runtime.Serialization.IgnoreDataMember]
         public virtual ICollection<TrackHistory> TrackHistory { get; set; }
     }
 }

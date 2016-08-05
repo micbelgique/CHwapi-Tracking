@@ -22,8 +22,10 @@ namespace ApiTracking.Models
     
         public int ID { get; set; }
         public string Description { get; set; }
+        public string Barcode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [System.Runtime.Serialization.IgnoreDataMember]
         public virtual ICollection<TrackedItem> TrackedItem { get; set; }
     }
 }
