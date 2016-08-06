@@ -35,7 +35,7 @@ namespace ApiTracking.Controllers
 
         // POST: api/Event
         [ResponseType(typeof(TrackHistory))]
-        public IHttpActionResult PostEvent(EventRequest er)
+        public IHttpActionResult AddEvent(EventRequest eRequest)
         {
             //contrôle des données passées
             if (!ModelState.IsValid)
@@ -43,36 +43,41 @@ namespace ApiTracking.Controllers
                 return BadRequest(ModelState);
             }
 
-            try
+            using (var transactionScope = db.Database.BeginTransaction())
             {
-                //Détermination du track en cours lié à la boîtez            
-                Track track = db.Track.Single<Track>(t => t.BoxID == er.message.boxid && t.Status == (int)TrackStatus.Open);
-                if (track == null)
+                try
                 {
-                    return NotFound(); //Si aucun track en cours (boîte vide) - ne pas prendre en compte l'évent
-                }            
+                    //Détermination du track en cours lié à la boîtez            
+                    Track track = db.Track.SingleOrDefault<Track>(t => t.BoxID == eRequest.message.boxid && t.Status == (int)TrackStatus.Open);
+                    if (track == null)
+                    {
+                        return NotFound(); //Si aucun track en cours (boîte vide) - ne pas prendre en compte l'évent
+                    }
+                        
+                    //Déterminer si parcours terminé
+                    if (track.GateID == eRequest.gateid)
+                    {
+                        track.Status = (int)TrackStatus.Closed; //Ajustement du status du track (fermeture)
+                    }
 
-                //Begin Transaction
+                    //Sauvegarde de l'évènement
+                    TrackHistory trackHistory = new TrackHistory();
+                    trackHistory.GateID = eRequest.gateid;
+                    trackHistory.TrackID = track.ID;
+                    trackHistory.ScanTime = DateTime.Now;
+                    db.TrackHistory.Add(trackHistory);
 
+                    db.SaveChanges();
 
-                //Déterminer si parcours terminé
-                if (track.GateID == er.gateid)
-                {
-                    track.Status = (int)TrackStatus.Closed; //Ajustement du status du track (fermeture)
+                    transactionScope.Commit();
+                    return CreatedAtRoute("DefaultApi", new { id = trackHistory.ID }, trackHistory);
                 }
-
-                //Sauvegarde de l'évènement
-                TrackHistory trackHistory = new TrackHistory();
-                trackHistory.GateID = er.gateid;
-                trackHistory.TrackID = er.message.boxid;
-                trackHistory.ScanTime = DateTime.Now; 
-                db.TrackHistory.Add(trackHistory);
-
-                db.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                log.ErrorFormat("{0} : {1}{2} | {3}", "Erreur lors de la récupération d'initiatives", "GET: Api/TrackEvent/", MethodBase.GetCurrentMethod().Name, e.ToString());
+                catch (Exception e)
+                {
+                    transactionScope.Rollback();
+                    log.ErrorFormat("{0} : {1}{2} | {3}", "Erreur lors de la transaction d'ajout d'un track event", "GET: Api/TrackEvent/", MethodBase.GetCurrentMethod().Name, e.ToString());
+                    return null;
+                }
             }
 
             return null;
