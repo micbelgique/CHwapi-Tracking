@@ -57,6 +57,7 @@ products from Adafruit!
 int ledCount=4;
 int currentLed;
 int leds[] = {LED_1, LED_2, LED_3, LED_4};
+int gates[] = {1, 2, 3, 4};
 
 // Uncomment just _one_ line below depending on how your breakout or shield
 // is connected to the Arduino:
@@ -171,6 +172,7 @@ void loop(void) {
           // Data seems to have been read ... spit it out
           Serial.println("Reading Block 4:");
           String str=(char *)data;
+          Serial.println("gate: "+String(gates[currentLed], DEC));
           Serial.println("message: "+str);
           nfc.PrintHexChar(data, 16);
           Serial.println("");
