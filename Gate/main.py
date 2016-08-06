@@ -4,9 +4,12 @@ import json
 import config
 import track
 import requests
+import getopt
 import time
 
 import serial
+
+DEFAULT_PORT = "COM3";
 
 def as_config(dictionary):
     return config.Config(dictionary['gateId'], dictionary['route'])
@@ -25,25 +28,42 @@ def initialize():
     return config
 
 def postEvent(config, message):
-    tracked=track.Track(message, config.gateId)
+    objectMessage=json.loads(message)
+    tracked=track.Track(objectMessage, config.gateId)
     str=json.dumps(tracked, cls=track.TrackEncoder)
 
-    r = requests.post(config.route, data=str)
+    print str;
+
+    headers = {'user-agent': 'gate/0.0.1', 'content-type': 'application/json;charset=UTF-8'}
+    r = requests.post(config.route, data=str, headers=headers)
     if(r.status_code==200):
         print r.json()
     else:
         print "code: {0}".format(r.status_code)
 
+def getSerialPort(argv):
+    for arg in sys.argv:
+        if "--serial:" in arg:
+            return arg[9:];
 
-def main():
+    return DEFAULT_PORT;
+
+def main(argv):
     config=initialize()
-    #postEvent(config, "salut")
+    config.port=getSerialPort(argv);
+
+    print "start listening on port '{0}'".format(config.port);
 
     while True:
-        ser = serial.Serial("COM3", 115200)
+        ser = serial.Serial(config.port, 115200)
         message=ser.readline()
         while (message):
             print message
+            if "gate: " in message:
+                message = message[6:]
+                config.gateId=int(message.rstrip('\n').rstrip('\r'));
+                print config.gateId
+
             if "message: " in message:
                 message = message[9:]
                 print("post: "+message)
@@ -52,10 +72,8 @@ def main():
             message=ser.readline()
 
         ser.close()
-        print "minibreak"
-        time.sleep(1)
 
     exit()
 
     #dumpUsb()
-main()
+main(sys.argv[1:])

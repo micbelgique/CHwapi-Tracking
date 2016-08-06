@@ -1,1 +1,1 @@
-{"gateId": 12345, "route": "http://localhost/ApiTracking/api/TrackEvent/AddEvent"}
+{"gateId": 12345, "route": "http://192.168.241.133:54321/ApiTracking/TrackEvent/AddEvent"}
