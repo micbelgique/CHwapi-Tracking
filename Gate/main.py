@@ -1,10 +1,12 @@
 import time
 import sys
-import usb.core
 import json
 import config
 import track
-import requests;
+import requests
+import time
+
+import serial
 
 def as_config(dictionary):
     return config.Config(dictionary['gateId'], dictionary['route'])
@@ -22,14 +24,6 @@ def initialize():
 
     return config
 
-def dumpUsb():
-    # find USB devices
-    dev = usb.core.find(find_all=True)
-    for cfg in dev:
-        print cfg
-        sys.stdout.write('Decimal VendorID=' + str(cfg.idVendor) + ' & ProductID=' + str(cfg.idProduct) + '\n')
-        sys.stdout.write('Hexadecimal VendorID=' + hex(cfg.idVendor) + ' & ProductID=' + hex(cfg.idProduct) + '\n\n')
-
 def postEvent(config, message):
     tracked=track.Track(message, config.gateId)
     str=json.dumps(tracked, cls=track.TrackEncoder)
@@ -37,23 +31,31 @@ def postEvent(config, message):
     r = requests.post(config.route, data=str)
     if(r.status_code==200):
         print r.json()
+    else:
+        print "code: {0}".format(r.status_code)
 
-        
-card = '0019171125'
+
 def main():
     config=initialize()
-    postEvent(config, "salut")
+    #postEvent(config, "salut")
+
+    while True:
+        ser = serial.Serial("COM3", 115200)
+        message=ser.readline()
+        while (message):
+            print message
+            if "message: " in message:
+                message = message[9:]
+                print("post: "+message)
+                postEvent(config, message)
+
+            message=ser.readline()
+
+        ser.close()
+        print "minibreak"
+        time.sleep(1)
+
     exit()
 
     #dumpUsb()
-
-    while True:
-        sys.stdin = open('/dev/tty0', 'r')
-        RFID_input = input()
-        if RFID_input == card:
-            print "Access Granted"
-            print "Read code from RFID reader:{0}".format(RFID_input)
-        else:
-            print "Access Denied"
-            tty.close()
 main()
