@@ -23,6 +23,9 @@ namespace ApiTracking.Models
     
         public int ID { get; set; }
         public string Description { get; set; }
+        public Nullable<int> X { get; set; }
+        public Nullable<int> Y { get; set; }
+        public Nullable<int> Z { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         [Newtonsoft.Json.JsonIgnore]

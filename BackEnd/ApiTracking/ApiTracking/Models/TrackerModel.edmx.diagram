@@ -10,7 +10,7 @@
         <EntityTypeShape EntityType="TrackerModel.Item" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TrackerModel.Track" Width="1.5" PointX="3.375" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="TrackerModel.TrackedItem" Width="1.5" PointX="3.375" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrackerModel.TrackHistory" Width="1.5" PointX="6.125" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrackerModel.TrackHistory" Width="1.5" PointX="6.125" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TrackerModel.User" Width="1.5" PointX="3.375" PointY="0.625" IsExpanded="true" />
         <AssociationConnector Association="TrackerModel.FK_Track_Box" ManuallyRouted="false" />
         <AssociationConnector Association="TrackerModel.FK_Track_Gate" ManuallyRouted="false" />

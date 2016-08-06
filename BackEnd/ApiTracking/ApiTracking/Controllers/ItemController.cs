@@ -78,6 +78,10 @@ namespace ApiTracking.Controllers
             {
                 return BadRequest(ModelState);
             }
+            if (db.Item.Any<Item>(i => i.Barcode == item.Barcode))
+            {
+                return StatusCode(HttpStatusCode.Conflict);
+            }
 
             db.Item.Add(item);
             db.SaveChanges();

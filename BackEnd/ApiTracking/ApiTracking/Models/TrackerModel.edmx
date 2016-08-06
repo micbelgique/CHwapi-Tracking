@@ -4,186 +4,189 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TrackerModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="TrackerModelStoreContainer">
-    <EntitySet Name="Box" EntityType="TrackerModel.Store.Box" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Gate" EntityType="TrackerModel.Store.Gate" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Item" EntityType="TrackerModel.Store.Item" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Track" EntityType="TrackerModel.Store.Track" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="TrackedItem" EntityType="TrackerModel.Store.TrackedItem" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="TrackHistory" EntityType="TrackerModel.Store.TrackHistory" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="User" EntityType="TrackerModel.Store.User" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK_Track_Box" Association="TrackerModel.Store.FK_Track_Box">
-      <End Role="Box" EntitySet="Box" />
-      <End Role="Track" EntitySet="Track" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Track_Gate" Association="TrackerModel.Store.FK_Track_Gate">
-      <End Role="Gate" EntitySet="Gate" />
-      <End Role="Track" EntitySet="Track" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TrackHistory_Gate" Association="TrackerModel.Store.FK_TrackHistory_Gate">
-      <End Role="Gate" EntitySet="Gate" />
-      <End Role="TrackHistory" EntitySet="TrackHistory" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TrackedItem_Item" Association="TrackerModel.Store.FK_TrackedItem_Item">
-      <End Role="Item" EntitySet="Item" />
-      <End Role="TrackedItem" EntitySet="TrackedItem" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Track_User" Association="TrackerModel.Store.FK_Track_User">
-      <End Role="User" EntitySet="User" />
-      <End Role="Track" EntitySet="Track" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TrackedItem_Track" Association="TrackerModel.Store.FK_TrackedItem_Track">
-      <End Role="Track" EntitySet="Track" />
-      <End Role="TrackedItem" EntitySet="TrackedItem" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TrackHistory_Track" Association="TrackerModel.Store.FK_TrackHistory_Track">
-      <End Role="Track" EntitySet="Track" />
-      <End Role="TrackHistory" EntitySet="TrackHistory" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="Box">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Description" Type="varchar" Nullable="false" MaxLength="100" />
-    <Property Name="Barcode" Type="varchar" Nullable="false" MaxLength="20" />
-  </EntityType>
-  <EntityType Name="Gate">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Description" Type="varchar" Nullable="false" MaxLength="100" />
-  </EntityType>
-  <EntityType Name="Item">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Description" Type="varchar" Nullable="false" MaxLength="100" />
-    <Property Name="Barcode" Type="varchar" Nullable="false" MaxLength="20" />
-  </EntityType>
-  <EntityType Name="Track">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="BoxID" Type="int" Nullable="false" />
-    <Property Name="GateID" Type="int" Nullable="false" />
-    <Property Name="UserID" Type="int" Nullable="false" />
-    <Property Name="Status" Type="tinyint" Nullable="false" />
-  </EntityType>
-  <EntityType Name="TrackedItem">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="TrackID" Type="int" Nullable="false" />
-    <Property Name="ItemID" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="TrackHistory">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="TrackID" Type="int" Nullable="false" />
-    <Property Name="GateID" Type="int" Nullable="true" />
-    <Property Name="ScanTime" Type="datetime" Nullable="false" />
-  </EntityType>
-  <EntityType Name="User">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Username" Type="varchar" Nullable="false" MaxLength="20" />
-  </EntityType>
-  <Association Name="FK_Track_Box">
-    <End Role="Box" Type="TrackerModel.Store.Box" Multiplicity="1" />
-    <End Role="Track" Type="TrackerModel.Store.Track" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Box">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Track">
-        <PropertyRef Name="BoxID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Track_Gate">
-    <End Role="Gate" Type="TrackerModel.Store.Gate" Multiplicity="1" />
-    <End Role="Track" Type="TrackerModel.Store.Track" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Gate">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Track">
-        <PropertyRef Name="GateID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_TrackHistory_Gate">
-    <End Role="Gate" Type="TrackerModel.Store.Gate" Multiplicity="0..1" />
-    <End Role="TrackHistory" Type="TrackerModel.Store.TrackHistory" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Gate">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="TrackHistory">
-        <PropertyRef Name="GateID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_TrackedItem_Item">
-    <End Role="Item" Type="TrackerModel.Store.Item" Multiplicity="1" />
-    <End Role="TrackedItem" Type="TrackerModel.Store.TrackedItem" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Item">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="TrackedItem">
-        <PropertyRef Name="ItemID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Track_User">
-    <End Role="User" Type="TrackerModel.Store.User" Multiplicity="1" />
-    <End Role="Track" Type="TrackerModel.Store.Track" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Track">
-        <PropertyRef Name="UserID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_TrackedItem_Track">
-    <End Role="Track" Type="TrackerModel.Store.Track" Multiplicity="1" />
-    <End Role="TrackedItem" Type="TrackerModel.Store.TrackedItem" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Track">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="TrackedItem">
-        <PropertyRef Name="TrackID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_TrackHistory_Track">
-    <End Role="Track" Type="TrackerModel.Store.Track" Multiplicity="1" />
-    <End Role="TrackHistory" Type="TrackerModel.Store.TrackHistory" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Track">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="TrackHistory">
-        <PropertyRef Name="TrackID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="TrackerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Box">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Barcode" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="X" Type="int" />
+          <Property Name="Y" Type="int" />
+          <Property Name="Z" Type="int" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Barcode" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Track">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BoxID" Type="int" Nullable="false" />
+          <Property Name="GateID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Status" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TrackedItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TrackID" Type="int" Nullable="false" />
+          <Property Name="ItemID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TrackHistory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TrackID" Type="int" Nullable="false" />
+          <Property Name="GateID" Type="int" />
+          <Property Name="ScanTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Track_Box">
+          <End Role="Box" Type="Self.Box" Multiplicity="1" />
+          <End Role="Track" Type="Self.Track" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Box">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Track">
+              <PropertyRef Name="BoxID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Track_Gate">
+          <End Role="Gate" Type="Self.Gate" Multiplicity="1" />
+          <End Role="Track" Type="Self.Track" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gate">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Track">
+              <PropertyRef Name="GateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Track_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Track" Type="Self.Track" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Track">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrackedItem_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="TrackedItem" Type="Self.TrackedItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TrackedItem">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrackedItem_Track">
+          <End Role="Track" Type="Self.Track" Multiplicity="1" />
+          <End Role="TrackedItem" Type="Self.TrackedItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Track">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TrackedItem">
+              <PropertyRef Name="TrackID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrackHistory_Gate">
+          <End Role="Gate" Type="Self.Gate" Multiplicity="0..1" />
+          <End Role="TrackHistory" Type="Self.TrackHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gate">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TrackHistory">
+              <PropertyRef Name="GateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrackHistory_Track">
+          <End Role="Track" Type="Self.Track" Multiplicity="1" />
+          <End Role="TrackHistory" Type="Self.TrackHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Track">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TrackHistory">
+              <PropertyRef Name="TrackID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TrackerModelStoreContainer">
+          <EntitySet Name="Box" EntityType="Self.Box" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gate" EntityType="Self.Gate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Track" EntityType="Self.Track" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrackedItem" EntityType="Self.TrackedItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrackHistory" EntityType="Self.TrackHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Track_Box" Association="Self.FK_Track_Box">
+            <End Role="Box" EntitySet="Box" />
+            <End Role="Track" EntitySet="Track" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Track_Gate" Association="Self.FK_Track_Gate">
+            <End Role="Gate" EntitySet="Gate" />
+            <End Role="Track" EntitySet="Track" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Track_User" Association="Self.FK_Track_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Track" EntitySet="Track" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackedItem_Item" Association="Self.FK_TrackedItem_Item">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="TrackedItem" EntitySet="TrackedItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackedItem_Track" Association="Self.FK_TrackedItem_Track">
+            <End Role="Track" EntitySet="Track" />
+            <End Role="TrackedItem" EntitySet="TrackedItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackHistory_Gate" Association="Self.FK_TrackHistory_Gate">
+            <End Role="Gate" EntitySet="Gate" />
+            <End Role="TrackHistory" EntitySet="TrackHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackHistory_Track" Association="Self.FK_TrackHistory_Track">
+            <End Role="Track" EntitySet="Track" />
+            <End Role="TrackHistory" EntitySet="TrackHistory" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TrackerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -204,6 +207,9 @@
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Track" Relationship="Self.FK_Track_Gate" FromRole="Gate" ToRole="Track" />
           <NavigationProperty Name="TrackHistory" Relationship="Self.FK_TrackHistory_Gate" FromRole="Gate" ToRole="TrackHistory" />
+          <Property Name="X" Type="Int32" />
+          <Property Name="Y" Type="Int32" />
+          <Property Name="Z" Type="Int32" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
@@ -397,7 +403,10 @@
     <EntitySetMapping Name="Gate">
       <EntityTypeMapping TypeName="IsTypeOf(TrackerModel.Gate)">
         <MappingFragment StoreEntitySet="Gate">
-          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Z" ColumnName="Z" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Description" ColumnName="Description" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -463,7 +472,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
         <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
