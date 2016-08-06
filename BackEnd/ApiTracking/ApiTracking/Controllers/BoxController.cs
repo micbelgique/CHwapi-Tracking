@@ -12,44 +12,44 @@ using ApiTracking.Models;
 
 namespace ApiTracking.Controllers
 {
-    public class UsersController : ApiController
+    public class BoxController : ApiController
     {
         private TrackerEntities db = new TrackerEntities();
 
-        // GET: api/Users
-        public IQueryable<User> GetUser()
+        // GET: api/Boxes
+        public IQueryable<Box> GetBox()
         {
-            return db.User;
+            return db.Box;
         }
 
-        // GET: api/Users/5
-        [ResponseType(typeof(User))]
-        public IHttpActionResult GetUser(int id)
+        // GET: api/Boxes/5
+        [ResponseType(typeof(Box))]
+        public IHttpActionResult GetBox(int id)
         {
-            User user = db.User.Find(id);
-            if (user == null)
+            Box box = db.Box.Find(id);
+            if (box == null)
             {
                 return NotFound();
             }
 
-            return Ok(user);
+            return Ok(box);
         }
 
-        // PUT: api/Users/5
+        // PUT: api/Boxes/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutUser(int id, User user)
+        public IHttpActionResult PutBox(int id, Box box)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != user.ID)
+            if (id != box.ID)
             {
                 return BadRequest();
             }
 
-            db.Entry(user).State = EntityState.Modified;
+            db.Entry(box).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace ApiTracking.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!BoxExists(id))
                 {
                     return NotFound();
                 }
@@ -70,35 +70,35 @@ namespace ApiTracking.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Users
-        [ResponseType(typeof(User))]
-        public IHttpActionResult PostUser(User user)
+        // POST: api/Boxes
+        [ResponseType(typeof(Box))]
+        public IHttpActionResult PostBox(Box box)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.User.Add(user);
+            db.Box.Add(box);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = user.ID }, user);
+            return CreatedAtRoute("DefaultApi", new { id = box.ID }, box);
         }
 
-        // DELETE: api/Users/5
-        [ResponseType(typeof(User))]
-        public IHttpActionResult DeleteUser(int id)
+        // DELETE: api/Boxes/5
+        [ResponseType(typeof(Box))]
+        public IHttpActionResult DeleteBox(int id)
         {
-            User user = db.User.Find(id);
-            if (user == null)
+            Box box = db.Box.Find(id);
+            if (box == null)
             {
                 return NotFound();
             }
 
-            db.User.Remove(user);
+            db.Box.Remove(box);
             db.SaveChanges();
 
-            return Ok(user);
+            return Ok(box);
         }
 
         protected override void Dispose(bool disposing)
@@ -110,9 +110,9 @@ namespace ApiTracking.Controllers
             base.Dispose(disposing);
         }
 
-        private bool UserExists(int id)
+        private bool BoxExists(int id)
         {
-            return db.User.Count(e => e.ID == id) > 0;
+            return db.Box.Count(e => e.ID == id) > 0;
         }
     }
 }

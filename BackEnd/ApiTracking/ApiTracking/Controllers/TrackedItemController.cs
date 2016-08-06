@@ -12,7 +12,7 @@ using ApiTracking.Models;
 
 namespace ApiTracking.Controllers
 {
-    public class TrackedItemsController : ApiController
+    public class TrackedItemController : ApiController
     {
         private TrackerEntities db = new TrackerEntities();
 

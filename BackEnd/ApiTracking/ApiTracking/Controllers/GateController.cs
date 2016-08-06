@@ -12,44 +12,44 @@ using ApiTracking.Models;
 
 namespace ApiTracking.Controllers
 {
-    public class TracksController : ApiController
+    public class GateController : ApiController
     {
         private TrackerEntities db = new TrackerEntities();
 
-        // GET: api/Tracks
-        public IQueryable<Track> GetTrack()
+        // GET: api/Gates
+        public IQueryable<Gate> GetGate()
         {
-            return db.Track;
+            return db.Gate;
         }
 
-        // GET: api/Tracks/5
-        [ResponseType(typeof(Track))]
-        public IHttpActionResult GetTrack(int id)
+        // GET: api/Gates/5
+        [ResponseType(typeof(Gate))]
+        public IHttpActionResult GetGate(int id)
         {
-            Track track = db.Track.Find(id);
-            if (track == null)
+            Gate gate = db.Gate.Find(id);
+            if (gate == null)
             {
                 return NotFound();
             }
 
-            return Ok(track);
+            return Ok(gate);
         }
 
-        // PUT: api/Tracks/5
+        // PUT: api/Gates/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutTrack(int id, Track track)
+        public IHttpActionResult PutGate(int id, Gate gate)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != track.ID)
+            if (id != gate.ID)
             {
                 return BadRequest();
             }
 
-            db.Entry(track).State = EntityState.Modified;
+            db.Entry(gate).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace ApiTracking.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TrackExists(id))
+                if (!GateExists(id))
                 {
                     return NotFound();
                 }
@@ -70,35 +70,35 @@ namespace ApiTracking.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Tracks
-        [ResponseType(typeof(Track))]
-        public IHttpActionResult PostTrack(Track track)
+        // POST: api/Gates
+        [ResponseType(typeof(Gate))]
+        public IHttpActionResult PostGate(Gate gate)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Track.Add(track);
+            db.Gate.Add(gate);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = track.ID }, track);
+            return CreatedAtRoute("DefaultApi", new { id = gate.ID }, gate);
         }
 
-        // DELETE: api/Tracks/5
-        [ResponseType(typeof(Track))]
-        public IHttpActionResult DeleteTrack(int id)
+        // DELETE: api/Gates/5
+        [ResponseType(typeof(Gate))]
+        public IHttpActionResult DeleteGate(int id)
         {
-            Track track = db.Track.Find(id);
-            if (track == null)
+            Gate gate = db.Gate.Find(id);
+            if (gate == null)
             {
                 return NotFound();
             }
 
-            db.Track.Remove(track);
+            db.Gate.Remove(gate);
             db.SaveChanges();
 
-            return Ok(track);
+            return Ok(gate);
         }
 
         protected override void Dispose(bool disposing)
@@ -110,9 +110,9 @@ namespace ApiTracking.Controllers
             base.Dispose(disposing);
         }
 
-        private bool TrackExists(int id)
+        private bool GateExists(int id)
         {
-            return db.Track.Count(e => e.ID == id) > 0;
+            return db.Gate.Count(e => e.ID == id) > 0;
         }
     }
 }
