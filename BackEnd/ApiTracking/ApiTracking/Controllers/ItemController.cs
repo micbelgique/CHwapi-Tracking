@@ -12,44 +12,44 @@ using ApiTracking.Models;
 
 namespace ApiTracking.Controllers
 {
-    public class GatesController : ApiController
+    public class ItemController : ApiController
     {
         private TrackerEntities db = new TrackerEntities();
 
-        // GET: api/Gates
-        public IQueryable<Gate> GetGate()
+        // GET: api/Items
+        public IQueryable<Item> GetItem()
         {
-            return db.Gate;
+            return db.Item;
         }
 
-        // GET: api/Gates/5
-        [ResponseType(typeof(Gate))]
-        public IHttpActionResult GetGate(int id)
+        // GET: api/Items/5
+        [ResponseType(typeof(Item))]
+        public IHttpActionResult GetItem(int id)
         {
-            Gate gate = db.Gate.Find(id);
-            if (gate == null)
+            Item item = db.Item.Find(id);
+            if (item == null)
             {
                 return NotFound();
             }
 
-            return Ok(gate);
+            return Ok(item);
         }
 
-        // PUT: api/Gates/5
+        // PUT: api/Items/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutGate(int id, Gate gate)
+        public IHttpActionResult PutItem(int id, Item item)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != gate.ID)
+            if (id != item.ID)
             {
                 return BadRequest();
             }
 
-            db.Entry(gate).State = EntityState.Modified;
+            db.Entry(item).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace ApiTracking.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!GateExists(id))
+                if (!ItemExists(id))
                 {
                     return NotFound();
                 }
@@ -70,35 +70,35 @@ namespace ApiTracking.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Gates
-        [ResponseType(typeof(Gate))]
-        public IHttpActionResult PostGate(Gate gate)
+        // POST: api/Items
+        [ResponseType(typeof(Item))]
+        public IHttpActionResult PostItem(Item item)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Gate.Add(gate);
+            db.Item.Add(item);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = gate.ID }, gate);
+            return CreatedAtRoute("DefaultApi", new { id = item.ID }, item);
         }
 
-        // DELETE: api/Gates/5
-        [ResponseType(typeof(Gate))]
-        public IHttpActionResult DeleteGate(int id)
+        // DELETE: api/Items/5
+        [ResponseType(typeof(Item))]
+        public IHttpActionResult DeleteItem(int id)
         {
-            Gate gate = db.Gate.Find(id);
-            if (gate == null)
+            Item item = db.Item.Find(id);
+            if (item == null)
             {
                 return NotFound();
             }
 
-            db.Gate.Remove(gate);
+            db.Item.Remove(item);
             db.SaveChanges();
 
-            return Ok(gate);
+            return Ok(item);
         }
 
         protected override void Dispose(bool disposing)
@@ -110,9 +110,9 @@ namespace ApiTracking.Controllers
             base.Dispose(disposing);
         }
 
-        private bool GateExists(int id)
+        private bool ItemExists(int id)
         {
-            return db.Gate.Count(e => e.ID == id) > 0;
+            return db.Item.Count(e => e.ID == id) > 0;
         }
     }
 }

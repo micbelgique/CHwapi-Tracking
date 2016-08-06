@@ -12,44 +12,44 @@ using ApiTracking.Models;
 
 namespace ApiTracking.Controllers
 {
-    public class BoxesController : ApiController
+    public class TrackController : ApiController
     {
         private TrackerEntities db = new TrackerEntities();
 
-        // GET: api/Boxes
-        public IQueryable<Box> GetBox()
+        // GET: api/Tracks
+        public IQueryable<Track> GetTrack()
         {
-            return db.Box;
+            return db.Track;
         }
 
-        // GET: api/Boxes/5
-        [ResponseType(typeof(Box))]
-        public IHttpActionResult GetBox(int id)
+        // GET: api/Tracks/5
+        [ResponseType(typeof(Track))]
+        public IHttpActionResult GetTrack(int id)
         {
-            Box box = db.Box.Find(id);
-            if (box == null)
+            Track track = db.Track.Find(id);
+            if (track == null)
             {
                 return NotFound();
             }
 
-            return Ok(box);
+            return Ok(track);
         }
 
-        // PUT: api/Boxes/5
+        // PUT: api/Tracks/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutBox(int id, Box box)
+        public IHttpActionResult PutTrack(int id, Track track)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != box.ID)
+            if (id != track.ID)
             {
                 return BadRequest();
             }
 
-            db.Entry(box).State = EntityState.Modified;
+            db.Entry(track).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace ApiTracking.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BoxExists(id))
+                if (!TrackExists(id))
                 {
                     return NotFound();
                 }
@@ -70,35 +70,35 @@ namespace ApiTracking.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Boxes
-        [ResponseType(typeof(Box))]
-        public IHttpActionResult PostBox(Box box)
+        // POST: api/Tracks
+        [ResponseType(typeof(Track))]
+        public IHttpActionResult PostTrack(Track track)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Box.Add(box);
+            db.Track.Add(track);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = box.ID }, box);
+            return CreatedAtRoute("DefaultApi", new { id = track.ID }, track);
         }
 
-        // DELETE: api/Boxes/5
-        [ResponseType(typeof(Box))]
-        public IHttpActionResult DeleteBox(int id)
+        // DELETE: api/Tracks/5
+        [ResponseType(typeof(Track))]
+        public IHttpActionResult DeleteTrack(int id)
         {
-            Box box = db.Box.Find(id);
-            if (box == null)
+            Track track = db.Track.Find(id);
+            if (track == null)
             {
                 return NotFound();
             }
 
-            db.Box.Remove(box);
+            db.Track.Remove(track);
             db.SaveChanges();
 
-            return Ok(box);
+            return Ok(track);
         }
 
         protected override void Dispose(bool disposing)
@@ -110,9 +110,9 @@ namespace ApiTracking.Controllers
             base.Dispose(disposing);
         }
 
-        private bool BoxExists(int id)
+        private bool TrackExists(int id)
         {
-            return db.Box.Count(e => e.ID == id) > 0;
+            return db.Track.Count(e => e.ID == id) > 0;
         }
     }
 }

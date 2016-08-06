@@ -12,44 +12,44 @@ using ApiTracking.Models;
 
 namespace ApiTracking.Controllers
 {
-    public class TrackHistoriesController : ApiController
+    public class UserController : ApiController
     {
         private TrackerEntities db = new TrackerEntities();
 
-        // GET: api/TrackHistories
-        public IQueryable<TrackHistory> GetTrackHistory()
+        // GET: api/Users
+        public IQueryable<User> GetUser()
         {
-            return db.TrackHistory;
+            return db.User;
         }
 
-        // GET: api/TrackHistories/5
-        [ResponseType(typeof(TrackHistory))]
-        public IHttpActionResult GetTrackHistory(int id)
+        // GET: api/Users/5
+        [ResponseType(typeof(User))]
+        public IHttpActionResult GetUser(int id)
         {
-            TrackHistory trackHistory = db.TrackHistory.Find(id);
-            if (trackHistory == null)
+            User user = db.User.Find(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return Ok(trackHistory);
+            return Ok(user);
         }
 
-        // PUT: api/TrackHistories/5
+        // PUT: api/Users/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutTrackHistory(int id, TrackHistory trackHistory)
+        public IHttpActionResult PutUser(int id, User user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != trackHistory.ID)
+            if (id != user.ID)
             {
                 return BadRequest();
             }
 
-            db.Entry(trackHistory).State = EntityState.Modified;
+            db.Entry(user).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace ApiTracking.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TrackHistoryExists(id))
+                if (!UserExists(id))
                 {
                     return NotFound();
                 }
@@ -70,35 +70,35 @@ namespace ApiTracking.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/TrackHistories
-        [ResponseType(typeof(TrackHistory))]
-        public IHttpActionResult PostTrackHistory(TrackHistory trackHistory)
+        // POST: api/Users
+        [ResponseType(typeof(User))]
+        public IHttpActionResult PostUser(User user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.TrackHistory.Add(trackHistory);
+            db.User.Add(user);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = trackHistory.ID }, trackHistory);
+            return CreatedAtRoute("DefaultApi", new { id = user.ID }, user);
         }
 
-        // DELETE: api/TrackHistories/5
-        [ResponseType(typeof(TrackHistory))]
-        public IHttpActionResult DeleteTrackHistory(int id)
+        // DELETE: api/Users/5
+        [ResponseType(typeof(User))]
+        public IHttpActionResult DeleteUser(int id)
         {
-            TrackHistory trackHistory = db.TrackHistory.Find(id);
-            if (trackHistory == null)
+            User user = db.User.Find(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            db.TrackHistory.Remove(trackHistory);
+            db.User.Remove(user);
             db.SaveChanges();
 
-            return Ok(trackHistory);
+            return Ok(user);
         }
 
         protected override void Dispose(bool disposing)
@@ -110,9 +110,9 @@ namespace ApiTracking.Controllers
             base.Dispose(disposing);
         }
 
-        private bool TrackHistoryExists(int id)
+        private bool UserExists(int id)
         {
-            return db.TrackHistory.Count(e => e.ID == id) > 0;
+            return db.User.Count(e => e.ID == id) > 0;
         }
     }
 }

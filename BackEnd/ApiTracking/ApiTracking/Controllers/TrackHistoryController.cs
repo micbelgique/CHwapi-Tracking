@@ -12,44 +12,44 @@ using ApiTracking.Models;
 
 namespace ApiTracking.Controllers
 {
-    public class ItemsController : ApiController
+    public class TrackHistoryController : ApiController
     {
         private TrackerEntities db = new TrackerEntities();
 
-        // GET: api/Items
-        public IQueryable<Item> GetItem()
+        // GET: api/TrackHistories
+        public IQueryable<TrackHistory> GetTrackHistory()
         {
-            return db.Item;
+            return db.TrackHistory;
         }
 
-        // GET: api/Items/5
-        [ResponseType(typeof(Item))]
-        public IHttpActionResult GetItem(int id)
+        // GET: api/TrackHistories/5
+        [ResponseType(typeof(TrackHistory))]
+        public IHttpActionResult GetTrackHistory(int id)
         {
-            Item item = db.Item.Find(id);
-            if (item == null)
+            TrackHistory trackHistory = db.TrackHistory.Find(id);
+            if (trackHistory == null)
             {
                 return NotFound();
             }
 
-            return Ok(item);
+            return Ok(trackHistory);
         }
 
-        // PUT: api/Items/5
+        // PUT: api/TrackHistories/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutItem(int id, Item item)
+        public IHttpActionResult PutTrackHistory(int id, TrackHistory trackHistory)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != item.ID)
+            if (id != trackHistory.ID)
             {
                 return BadRequest();
             }
 
-            db.Entry(item).State = EntityState.Modified;
+            db.Entry(trackHistory).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace ApiTracking.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ItemExists(id))
+                if (!TrackHistoryExists(id))
                 {
                     return NotFound();
                 }
@@ -70,35 +70,35 @@ namespace ApiTracking.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Items
-        [ResponseType(typeof(Item))]
-        public IHttpActionResult PostItem(Item item)
+        // POST: api/TrackHistories
+        [ResponseType(typeof(TrackHistory))]
+        public IHttpActionResult PostTrackHistory(TrackHistory trackHistory)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Item.Add(item);
+            db.TrackHistory.Add(trackHistory);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = item.ID }, item);
+            return CreatedAtRoute("DefaultApi", new { id = trackHistory.ID }, trackHistory);
         }
 
-        // DELETE: api/Items/5
-        [ResponseType(typeof(Item))]
-        public IHttpActionResult DeleteItem(int id)
+        // DELETE: api/TrackHistories/5
+        [ResponseType(typeof(TrackHistory))]
+        public IHttpActionResult DeleteTrackHistory(int id)
         {
-            Item item = db.Item.Find(id);
-            if (item == null)
+            TrackHistory trackHistory = db.TrackHistory.Find(id);
+            if (trackHistory == null)
             {
                 return NotFound();
             }
 
-            db.Item.Remove(item);
+            db.TrackHistory.Remove(trackHistory);
             db.SaveChanges();
 
-            return Ok(item);
+            return Ok(trackHistory);
         }
 
         protected override void Dispose(bool disposing)
@@ -110,9 +110,9 @@ namespace ApiTracking.Controllers
             base.Dispose(disposing);
         }
 
-        private bool ItemExists(int id)
+        private bool TrackHistoryExists(int id)
         {
-            return db.Item.Count(e => e.ID == id) > 0;
+            return db.TrackHistory.Count(e => e.ID == id) > 0;
         }
     }
 }
