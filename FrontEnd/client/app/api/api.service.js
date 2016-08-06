@@ -13,16 +13,16 @@ angular.module('frontEndApp')
       return $http.get(serviceBase + q).then(function(results) {
         return results.data;
       }, function(results) {
-        ngNotify.set($translate.instant('app.components.api.UNABLETOCONNECT'), 'error');
+        //ngNotify.set($translate.instant('app.components.api.UNABLETOCONNECT'), 'error');
       });
     };
 
     obj.post = function(q, object) {
-      object = JSON.stringify(object);
+      //object = JSON.stringify(object);
       return $http.post(serviceBase + q, object).then(function(results) {
         return results.data;
       }, function(results) {
-        ngNotify.set($translate.instant('app.components.api.UNABLETOCONNECT'), 'error');
+        //ngNotify.set($translate.instant('app.components.api.UNABLETOCONNECT'), 'error');
 
       });
     };
@@ -31,7 +31,7 @@ angular.module('frontEndApp')
       return $http.put(serviceBase + q, object).then(function(results) {
         return results.data;
       }, function(results) {
-        ngNotify.set($translate.instant('app.components.api.UNABLETOCONNECT'), 'error');
+        //ngNotify.set($translate.instant('app.components.api.UNABLETOCONNECT'), 'error');
       });
     };
     obj.delete = function(q) {
@@ -39,7 +39,7 @@ angular.module('frontEndApp')
       return $http.delete(serviceBase + q).then(function(results) {
         return results.data;
       }, function(results) {
-        ngNotify.set($translate.instant('app.components.api.UNABLETOCONNECT'), 'error');
+        //ngNotify.set($translate.instant('app.components.api.UNABLETOCONNECT'), 'error');
 
       });
     };

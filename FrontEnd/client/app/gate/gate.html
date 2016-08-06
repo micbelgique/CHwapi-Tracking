@@ -3,9 +3,9 @@
 </header>
 <div class="container">
   <br>
-  <form name="this.gateForm" ng-submit="this.handleSubmit()">
-    <formly-form model="this.gateModel" fields="this.gateFields" options="this.options">
-      <button type="submit" ng-disabled="this.gateForm.$invalid">Add a gate</button>
+  <form name="gateForm" ng-submit="create(gateModel)">
+    <formly-form model="gateModel" fields="gateFields" options="options">
+      <button type="submit" ng-disabled="gateForm.$invalid">Add a gate</button>
     </formly-form>
   </form>
 </div>

@@ -4,7 +4,7 @@
 <div class="container">
   <br>
   <form name="boxForm" ng-submit="create(boxModel)">
-    <formly-form model="boxModel" fields="boxFields" options="">
+    <formly-form model="boxModel" fields="boxFields" options="options">
       <button type="submit" ng-disabled="boxForm.$invalid">Add a box</button>
     </formly-form>
   </form>

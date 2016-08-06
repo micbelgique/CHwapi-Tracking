@@ -17,24 +17,20 @@ angular.module('frontEndApp')
       'type': 'input',
       'templateOptions': {
         'label': 'View the history of a box :',
-        'placeholder': 'Type a description or a barcode',
+        'placeholder': 'Type a description or scan a barcode',
         'required': true,
         'focus': true
       }
     }];
 
 
-    $scope.history = function(data) {
-      api.get('historyes', data).then(function(result) {
-        if (result.status !== 'error') {
-          ngNotify.set('history Added successfuly', 'success');
-          $scope.options.resetModel()
-        } else {
-          ngNotify.set('Oops, something went wrong', 'error');
+    $scope.boxes = [];
+    api.get('boxes')
+      .then(function(response) {
+        if (response !== undefined) {
+          $scope.boxes = $scope.boxes.push(response);
         }
       });
-
-    };
 
 
   });

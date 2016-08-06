@@ -2,13 +2,21 @@
 angular.module('frontEndApp')
   .controller('AddaddIteminaboxComponent', function($scope, api) {
 
-    /*
-    {
-      "ID": 0,
-      "Description": "string",
-      "Barcode": "string"
-    }
-    */
+    $scope.boxes = [];
+    api.get('box')
+      .then(function(response) {
+        if (response !== undefined) {
+          $scope.boxes = $scope.boxes.push(response);
+        }
+      });
+
+    $scope.items = [];
+    api.get('item')
+      .then(function(response) {
+        if (response !== undefined) {
+          $scope.items = $scope.items.push(response);
+        }
+      });
 
     $scope.addItemModel = {};
     $scope.addItemForm = {};

@@ -3,9 +3,9 @@
 </header>
 <div class="container">
   <br>
-  <form name="this.itemForm" ng-submit="this.handleSubmit()">
-    <formly-form model="this.itemModel" fields="this.itemFields" options="this.options">
-      <button type="submit" ng-disabled="this.itemForm.$invalid">Add a item</button>
+  <form name="itemForm" ng-submit="create(itemModel)">
+    <formly-form model="itemModel" fields="itemFields" options="options">
+      <button type="submit" ng-disabled="itemForm.$invalid">Add a item</button>
     </formly-form>
   </form>
 </div>

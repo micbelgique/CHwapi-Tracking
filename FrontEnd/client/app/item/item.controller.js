@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('frontEndApp')
-  .controller('itemComponent', function($scope, api) {
+  .controller('itemComponent', function($scope, api, ngNotify) {
 
     /*
     {
@@ -34,7 +34,7 @@ angular.module('frontEndApp')
 
 
     $scope.create = function(data) {
-      api.post('itemes', data).then(function(result) {
+      api.post('item', data).then(function(result) {
         if (result.status !== 'error') {
           ngNotify.set('item Added successfuly', 'success');
           $scope.options.resetModel()

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('frontEndApp')
-  .controller('boxComponent', function($scope, api) {
+  .controller('boxComponent', function($scope, api, ngNotify) {
 
     /*
     {
@@ -34,7 +34,7 @@ angular.module('frontEndApp')
 
 
     $scope.create = function(data) {
-      api.post('boxes', data).then(function(result) {
+      api.post('box', data).then(function(result) {
         if (result.status !== 'error') {
           ngNotify.set('Box Added successfuly', 'success');
           $scope.options.resetModel()
