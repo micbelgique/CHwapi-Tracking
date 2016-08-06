@@ -105,6 +105,71 @@ namespace ApiTracking.Controllers
             }
         }
 
+
+        #region Enum
+
+        public enum TrackStatus { Open = 1, Closed }
+
+        #endregion
+        public class CreateRequest
+        {
+            public User user { get; set; }
+            public Gate gate { get; set; }
+            public Box box { get; set; }
+            public List<Item> items { get; set; }
+        }        
+        [ResponseType(typeof(Track))]
+        public IHttpActionResult CreateBox(CreateRequest cRequest)
+        {
+            //contrôle des données passées
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            using (var transactionScope = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    //Ajout de la boite
+                    db.Box.Add(cRequest.box);
+
+                    //Ajout du track
+                    Track track = new Track();
+                    track.BoxID = cRequest.box.ID;
+                    track.GateID = cRequest.gate.ID;
+                    track.UserID = cRequest.user.ID;
+                    track.Status = (int)TrackStatus.Open;
+                    db.Track.Add(track);
+
+                    //Ajout des items
+                    foreach (Item item in cRequest.items)
+                    {
+                        db.Item.Add(item);
+
+                        //Affectation de l'item à la boîte
+                        TrackedItem trackItem = new TrackedItem();
+                        trackItem.Item = item;
+                        trackItem.Track = track;
+                        db.TrackedItem.Add(trackItem);
+                    }
+
+                    db.SaveChanges();
+
+                    transactionScope.Commit();
+
+                    return Ok(track);
+                }
+                catch (Exception e)
+                {
+                    transactionScope.Rollback();
+                    log.ErrorFormat("{0} : {1}{2} | {3}", "Erreur lors de la recherche", "GET: Api/TrackAdmin/", MethodBase.GetCurrentMethod().Name, e.ToString());
+                }
+            }
+
+            return null;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
