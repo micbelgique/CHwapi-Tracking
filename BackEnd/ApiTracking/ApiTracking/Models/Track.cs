@@ -37,7 +37,7 @@ namespace ApiTracking.Models
         [Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<TrackedItem> TrackedItem { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [Newtonsoft.Json.JsonIgnore]
+        //[Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<TrackHistory> TrackHistory { get; set; }
     }
 }

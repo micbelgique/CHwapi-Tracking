@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Http.Results;
 
 namespace ApiTracking.Controllers
 {
@@ -26,6 +27,7 @@ namespace ApiTracking.Controllers
             public List<Box> boxes { get; set; }
             public List<Item> items { get; set; }
         }
+
         [ResponseType(typeof(SearchResponse))]
         public IHttpActionResult Search(SearchRequest sRequest)
         {
@@ -70,6 +72,8 @@ namespace ApiTracking.Controllers
         {
             public List<Track> Tracks { get; set; }
         }
+
+        
         [ResponseType(typeof(HistoryResponse))]
         public IHttpActionResult History(HistoryRequest hRequest)
         {
@@ -86,11 +90,12 @@ namespace ApiTracking.Controllers
 
                 //Recherche de tracks associées à la boîte
                 tracks = db.Track.Where(t => t.BoxID == hRequest.boxid).OrderBy(t => t.ID).ToList<Track>();
-
+                
                 //Embarquer l'history par ordre chronologique dans chaque track            
                 foreach (Track track in tracks)
                 {
-                    db.Entry(track).Reference(t => t.TrackHistory).Load();
+                    var trackHistory = track.TrackHistory;
+                    track.TrackHistory = trackHistory.OrderBy(th => th.ScanTime).ToList();
                 }
 
                 //Préparation réponse

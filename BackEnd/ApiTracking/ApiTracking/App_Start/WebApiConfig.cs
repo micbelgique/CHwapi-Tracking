@@ -18,16 +18,17 @@ namespace ApiTracking
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+            // Force the use of EXACT action names.
+            config.Routes.MapHttpRoute(
+                name: "DefaultActionApi",
+                routeTemplate: "TrackAdmin/{action}",
+                defaults: new { controller = "trackadmin" }
+            );/**/
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
-            );/**/
-
-            // Force the use of EXACT action names.
-            /*config.Routes.MapHttpRoute(
-                name: "DefaultActionApi",
-                routeTemplate: "api/{controller}/{action}"
             );/**/
 
             // Used to force JSON type
