@@ -1,13 +1,11 @@
+<header class="hero-unit" id="banner">
+  <h1>Add a new box</h1>
+</header>
 <div class="container">
-
-<h1>Add a new box</h1>
-
-
-<form name="this.boxForm" ng-submit="this.handleSubmit()">
-  <formly-form model="this.boxModel" fields="this.boxFields" options="this.options">
-    <button type="submit" ng-disabled="this.boxForm.$invalid">Submit</button>
-    <button type="button" ng-click="this.options.resetModel()">Reset</button>
-  </formly-form>
-</form>
-
+  <br>
+  <form name="boxForm" ng-submit="create(boxModel)">
+    <formly-form model="boxModel" fields="boxFields" options="">
+      <button type="submit" ng-disabled="boxForm.$invalid">Add a box</button>
+    </formly-form>
+  </form>
 </div>

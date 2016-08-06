@@ -1,18 +1,49 @@
 'use strict';
 
-(function(){
-
-class ItemComponent {
-  constructor() {
-    this.message = 'Hello';
-  }
-}
-
 angular.module('frontEndApp')
-  .component('item', {
-    templateUrl: 'app/item/item.html',
-    controller: ItemComponent,
-    //controllerAs: Item
-  });
+  .controller('itemComponent', function($scope, api) {
 
-})();
+    /*
+    {
+      "ID": 0,
+      "Description": "string",
+      "Barcode": "string"
+    }
+    */
+
+    $scope.itemModel = {};
+    $scope.itemForm = {};
+    $scope.itemFields = [{
+      'key': 'Barcode',
+      'type': 'input',
+      'templateOptions': {
+        'label': 'Scan the barcode :',
+        'placeholder': 'Scan the barcode',
+        'required': true,
+        'focus': true
+      }
+    }, {
+      'key': 'Description',
+      'type': 'input',
+      'templateOptions': {
+        'label': 'Item description :',
+        'placeholder': 'Enter the description of the item',
+        'required': true
+      }
+    }, ];
+
+
+    $scope.create = function(data) {
+      api.post('itemes', data).then(function(result) {
+        if (result.status !== 'error') {
+          ngNotify.set('item Added successfuly', 'success');
+          $scope.options.resetModel()
+        } else {
+          ngNotify.set('Oops, something went wrong', 'error');
+        }
+      });
+
+    };
+
+
+  });

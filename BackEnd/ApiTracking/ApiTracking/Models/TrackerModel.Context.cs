@@ -18,7 +18,6 @@ namespace ApiTracking.Models
         public TrackerEntities()
             : base("name=TrackerEntities")
         {
-            //this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

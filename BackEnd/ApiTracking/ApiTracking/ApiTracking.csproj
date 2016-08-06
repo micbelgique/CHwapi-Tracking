@@ -14,7 +14,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ApiTracking</RootNamespace>
-    <AssemblyName>CHwapi Template WebAPI</AssemblyName>
+    <AssemblyName>APITracking</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
@@ -156,9 +156,7 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BoxesController.cs" />
@@ -230,6 +228,7 @@
       <DependentUpon>TrackerModel.edmx</DependentUpon>
       <LastGenOutput>TrackerModel.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\TrackerModel.edmx.sql" />
     <Content Include="Models\TrackerModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>TrackerModel.edmx</DependentUpon>

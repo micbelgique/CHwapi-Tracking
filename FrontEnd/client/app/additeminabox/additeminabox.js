@@ -1,10 +1,9 @@
-'use strict';
-
 angular.module('frontEndApp')
-  .config(function ($stateProvider) {
+  .config(function($stateProvider) {
     $stateProvider
       .state('additeminabox', {
         url: '/additeminabox',
-        template: '<additeminabox></additeminabox>'
+        templateUrl: 'app/additeminabox/additeminabox.html',
+        controller: 'AddaddIteminaboxComponent'
       });
   });
