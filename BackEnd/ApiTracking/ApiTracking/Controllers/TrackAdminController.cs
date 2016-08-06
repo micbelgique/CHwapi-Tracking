@@ -117,12 +117,16 @@ namespace ApiTracking.Controllers
 
         #endregion
         public class CreateRequest
-        {
-            public User user { get; set; }
-            public Gate gate { get; set; }
+        {           
+            
             public Box box { get; set; }
             public List<Item> items { get; set; }
-        }        
+        }
+        public class CreateResponse
+        {            
+            public Box box { get; set; }
+            public List<Item> items { get; set; }
+        }
         [ResponseType(typeof(Track))]
         public IHttpActionResult CreateBox(CreateRequest cRequest)
         {
@@ -136,25 +140,65 @@ namespace ApiTracking.Controllers
             {
                 try
                 {
-                    //Ajout de la boite
-                    db.Box.Add(cRequest.box);
+                    //Ajout des items
+                    foreach (Item item in cRequest.items)
+                    {
+                        db.Item.Add(item);                        
+                    }
 
+                    db.SaveChanges();
+
+                    CreateResponse cResponse = new CreateResponse();
+                    cResponse.box = cRequest.box;
+                    cResponse.items = cRequest.items;
+
+                    transactionScope.Commit();
+
+                    return Ok(cResponse);
+                }
+                catch (Exception e)
+                {
+                    transactionScope.Rollback();
+                    log.ErrorFormat("{0} : {1}{2} | {3}", "Erreur lors de la recherche", "GET: Api/TrackAdmin/", MethodBase.GetCurrentMethod().Name, e.ToString());
+                }
+            }
+
+            return null;
+        }
+
+        public class AffectRequest
+        {
+            public int gateid { get; set; }
+            public int boxid { get; set; }
+            public List<int> itemsid { get; set; }
+        }
+        [ResponseType(typeof(Track))]
+        public IHttpActionResult AffectBox(AffectRequest cRequest)
+        {
+            //contrôle des données passées
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            using (var transactionScope = db.Database.BeginTransaction())
+            {
+                try
+                {
                     //Ajout du track
                     Track track = new Track();
-                    track.BoxID = cRequest.box.ID;
-                    track.GateID = cRequest.gate.ID;
-                    track.UserID = cRequest.user.ID;
+                    track.BoxID = cRequest.boxid;
+                    track.GateID = cRequest.gateid;
+                    track.UserID = 1; //On n'a pas la partie d'identification donc faudra l'implémenter et passer le user dans les params
                     track.Status = (int)TrackStatus.Open;
                     db.Track.Add(track);
 
                     //Ajout des items
-                    foreach (Item item in cRequest.items)
+                    foreach (int itemid in cRequest.itemsid)
                     {
-                        db.Item.Add(item);
-
                         //Affectation de l'item à la boîte
                         TrackedItem trackItem = new TrackedItem();
-                        trackItem.Item = item;
+                        trackItem.ItemID = itemid;
                         trackItem.Track = track;
                         db.TrackedItem.Add(trackItem);
                     }
