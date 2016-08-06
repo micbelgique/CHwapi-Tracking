@@ -165,6 +165,7 @@
     <Compile Include="Controllers\GatesController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\TrackedItemsController.cs" />
+    <Compile Include="Controllers\TrackEventController.cs" />
     <Compile Include="Controllers\TrackHistoriesController.cs" />
     <Compile Include="Controllers\TracksController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
