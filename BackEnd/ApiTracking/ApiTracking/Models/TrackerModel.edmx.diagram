@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3d936756a94e4100905bf6745ec60b6b" Name="Diagram1">
+        <EntityTypeShape EntityType="TrackerModel.Box" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrackerModel.Gate" Width="1.5" PointX="6.125" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrackerModel.Item" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrackerModel.Track" Width="1.5" PointX="3.375" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrackerModel.TrackedItem" Width="1.5" PointX="3.375" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrackerModel.TrackHistory" Width="1.5" PointX="6.125" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrackerModel.User" Width="1.5" PointX="3.375" PointY="0.625" IsExpanded="true" />
+        <AssociationConnector Association="TrackerModel.FK_Track_Box" ManuallyRouted="false" />
+        <AssociationConnector Association="TrackerModel.FK_Track_Gate" ManuallyRouted="false" />
+        <AssociationConnector Association="TrackerModel.FK_TrackHistory_Gate" ManuallyRouted="false" />
+        <AssociationConnector Association="TrackerModel.FK_TrackedItem_Item" ManuallyRouted="false" />
+        <AssociationConnector Association="TrackerModel.FK_Track_User" ManuallyRouted="false" />
+        <AssociationConnector Association="TrackerModel.FK_TrackedItem_Track" ManuallyRouted="false" />
+        <AssociationConnector Association="TrackerModel.FK_TrackHistory_Track" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
