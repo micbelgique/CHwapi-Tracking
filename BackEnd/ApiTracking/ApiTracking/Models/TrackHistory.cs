@@ -19,9 +19,9 @@ namespace ApiTracking.Models
         public Nullable<int> GateID { get; set; }
         public System.DateTime ScanTime { get; set; }
 
-        [System.Runtime.Serialization.IgnoreDataMember]
+        [Newtonsoft.Json.JsonIgnore]
         public virtual Gate Gate { get; set; }
-        [System.Runtime.Serialization.IgnoreDataMember]
+        [Newtonsoft.Json.JsonIgnore]
         public virtual Track Track { get; set; }
     }
 }

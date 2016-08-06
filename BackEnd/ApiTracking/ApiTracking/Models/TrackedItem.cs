@@ -18,9 +18,9 @@ namespace ApiTracking.Models
         public int TrackID { get; set; }
         public int ItemID { get; set; }
 
-        [System.Runtime.Serialization.IgnoreDataMember]
+        [Newtonsoft.Json.JsonIgnore]
         public virtual Item Item { get; set; }
-        [System.Runtime.Serialization.IgnoreDataMember]
+        [Newtonsoft.Json.JsonIgnore]
         public virtual Track Track { get; set; }
     }
 }
