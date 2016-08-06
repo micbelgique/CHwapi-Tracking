@@ -61,6 +61,50 @@ namespace ApiTracking.Controllers
             return null;
         }
 
+        public class HistoryRequest
+        {
+            public int boxid { get; set; }
+            public int status { get; set; }
+        }
+        public class HistoryResponse
+        {
+            public List<Track> Tracks { get; set; }
+        }
+        [ResponseType(typeof(HistoryResponse))]
+        public IHttpActionResult History(HistoryRequest hRequest)
+        {
+            //contrôle des données passées
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                HistoryResponse sResponse = new HistoryResponse();
+                List<Track> tracks = new List<Track>();                
+
+                //Recherche de tracks associées à la boîte
+                tracks = db.Track.Where(t => t.BoxID == hRequest.boxid).OrderBy(t => t.ID).ToList<Track>();
+
+                //Embarquer l'history par ordre chronologique dans chaque track            
+                foreach (Track track in tracks)
+                {
+                    db.Entry(track).Reference(t => t.TrackHistory).Load();
+                }
+
+                //Préparation réponse
+                sResponse.Tracks = tracks;                
+
+                return Ok(sResponse);
+            }
+            catch (Exception e)
+            {
+                log.ErrorFormat("{0} : {1}{2} | {3}", "Erreur lors de la recherche", "GET: Api/TrackAdmin/", MethodBase.GetCurrentMethod().Name, e.ToString());
+                return InternalServerError();
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
