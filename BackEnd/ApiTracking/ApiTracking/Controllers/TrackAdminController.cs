@@ -189,20 +189,25 @@ namespace ApiTracking.Controllers
                     Track track = new Track();
                     track.BoxID = cRequest.boxid;
                     track.GateID = cRequest.gateid;
-                    track.UserID = 1; //On n'a pas la partie d'identification donc faudra l'implémenter et passer le user dans les params
+                    track.UserID = 5; //On n'a pas la partie d'identification donc faudra l'implémenter et passer le user dans les params
                     track.Status = (int)TrackStatus.Open;
-                    db.Track.Add(track);
 
                     //Ajout des items
                     foreach (int itemid in cRequest.itemsid)
                     {
-                        //Affectation de l'item à la boîte
-                        TrackedItem trackItem = new TrackedItem();
-                        trackItem.ItemID = itemid;
-                        trackItem.Track = track;
-                        db.TrackedItem.Add(trackItem);
+                        var vTempTI = track.TrackedItem.FirstOrDefault<TrackedItem>(ti => ti.ItemID == itemid);
+                        if (vTempTI != null)
+                        {
+                            ++vTempTI.Quantity;
+                        }
+                        else
+                        {
+                            TrackedItem trackedItem = new TrackedItem() { ItemID = itemid, Track = track, Quantity = 1 };
+                            track.TrackedItem.Add(trackedItem);
+                        }
                     }
 
+                    db.Track.Add(track);
                     db.SaveChanges();
 
                     transactionScope.Commit();

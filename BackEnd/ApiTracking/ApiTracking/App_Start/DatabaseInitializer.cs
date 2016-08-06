@@ -16,11 +16,11 @@ namespace ApiTracking.App_Start
         {
             //// Seeding Datas
             // Gates
-            context.Gate.Add(new Gate() { Description = "Accueil Site n°1" });
-            context.Gate.Add(new Gate() { Description = "Accueil Site n°2" });
-            context.Gate.Add(new Gate() { Description = "Accueil Site n°3" });
-            context.Gate.Add(new Gate() { Description = "Laboratoire Site n°1" });
-            context.Gate.Add(new Gate() { Description = "Pharmacie Site n°2" });
+            context.Gate.Add(new Gate() { Description = "Accueil Site n°1", X = 0, Y = 1, Z = 2 });
+            context.Gate.Add(new Gate() { Description = "Accueil Site n°2", X = 0, Y = 2, Z = 2 });
+            context.Gate.Add(new Gate() { Description = "Accueil Site n°3", X = 0, Y = 3, Z = 2 });
+            context.Gate.Add(new Gate() { Description = "Laboratoire Site n°1", X = 1, Y = 1, Z = 2 });
+            context.Gate.Add(new Gate() { Description = "Pharmacie Site n°2", X = 2, Y = 2, Z = 2 });
 
             // Boxes
             context.Box.Add(new Box() { Description = "Container de médicaments", Barcode = "BOX-0001" });

@@ -17,6 +17,7 @@ namespace ApiTracking.Models
         public int ID { get; set; }
         public int TrackID { get; set; }
         public int ItemID { get; set; }
+        public Nullable<int> Quantity { get; set; }
 
         [Newtonsoft.Json.JsonIgnore]
         public virtual Item Item { get; set; }
