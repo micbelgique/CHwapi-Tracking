@@ -1,5 +1,8 @@
-﻿using System;
+﻿using ApiTracking.App_Start;
+using ApiTracking.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -18,6 +21,9 @@ namespace ApiTracking
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 
             log4net.Config.XmlConfigurator.Configure();
+
+            /*DatabaseInitializer dbi = new DatabaseInitializer();
+            dbi.Seed();/**/
         }
     }
 }

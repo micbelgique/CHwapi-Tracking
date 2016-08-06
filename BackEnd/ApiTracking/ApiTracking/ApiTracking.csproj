@@ -164,10 +164,11 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\DatabaseInitializer.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-	<Compile Include="Controllers\TrackEventController.cs" />
+    <Compile Include="Controllers\TrackEventController.cs" />
     <Compile Include="Controllers\BoxController.cs" />
     <Compile Include="Controllers\GateController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
