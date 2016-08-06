@@ -1,17 +1,49 @@
 'use strict';
 
-(function() {
+angular.module('frontEndApp')
+  .controller('boxComponent', function($scope, api) {
 
-  class BoxComponent {
-    constructor() {      
-      this.message = 'Hello';
+    /*
+    {
+      "ID": 0,
+      "Description": "string",
+      "Barcode": "string"
     }
-  }
+    */
 
-  angular.module('frontEndApp')
-    .component('box', {
-      templateUrl: 'app/box/box.html',
-      controller: BoxComponent,
-      //controllerAs: Box
-    });
-})();
+    $scope.boxModel = {};
+    $scope.boxForm = {};
+    $scope.boxFields = [{
+      'key': 'Barcode',
+      'type': 'input',
+      'templateOptions': {
+        'label': 'Scan the barcode :',
+        'placeholder': 'Scan the barcode',
+        'required': true,
+        'focus': true
+      }
+    }, {
+      'key': 'Description',
+      'type': 'input',
+      'templateOptions': {
+        'label': 'Box description :',
+        'placeholder': 'Enter the description of the box',
+        'required': true
+      }
+    }];
+
+
+    $scope.create = function(data) {
+      api.post('boxes', data).then(function(result) {
+        if (result.status !== 'error') {
+          ngNotify.set('Box Added successfuly', 'success');
+          $scope.options.resetModel()
+        } else {
+          ngNotify.set('Oops, something went wrong', 'error');
+        }
+      });
+
+    };
+
+
+  });

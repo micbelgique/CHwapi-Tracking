@@ -1,1 +1,11 @@
-<h1>Add a new item</h1>
+<header class="hero-unit" id="banner">
+  <h1>Add a new item</h1>
+</header>
+<div class="container">
+  <br>
+  <form name="this.itemForm" ng-submit="this.handleSubmit()">
+    <formly-form model="this.itemModel" fields="this.itemFields" options="this.options">
+      <button type="submit" ng-disabled="this.itemForm.$invalid">Add a item</button>
+    </formly-form>
+  </form>
+</div>

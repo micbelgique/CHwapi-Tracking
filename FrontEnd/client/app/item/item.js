@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('frontEndApp')
-  .config(function ($stateProvider) {
+  .config(function($stateProvider) {
     $stateProvider
       .state('item', {
         url: '/item',
-        template: '<item></item>'
+        templateUrl: 'app/item/item.html',
+        controller: 'itemComponent'
       });
   });

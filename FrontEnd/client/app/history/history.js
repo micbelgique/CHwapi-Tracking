@@ -1,10 +1,10 @@
 'use strict';
-
 angular.module('frontEndApp')
-  .config(function ($stateProvider) {
+  .config(function($stateProvider) {
     $stateProvider
       .state('history', {
         url: '/history',
-        template: '<history></history>'
+        templateUrl: 'app/history/history.html',
+        controller: 'historyComponent'
       });
   });
