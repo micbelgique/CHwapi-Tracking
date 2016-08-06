@@ -9,6 +9,7 @@ using ApiTracking.Models;
 using System.Data.Entity.Infrastructure;
 using log4net;
 using System.Reflection;
+using System.Web.Http.Results;
 
 namespace ApiTracking.Controllers
 {
@@ -51,7 +52,7 @@ namespace ApiTracking.Controllers
                     Track track = db.Track.SingleOrDefault<Track>(t => t.BoxID == eRequest.message.boxid && t.Status == (int)TrackStatus.Open);
                     if (track == null)
                     {
-                        return NotFound(); //Si aucun track en cours (boîte vide) - ne pas prendre en compte l'évent
+                        return new StatusCodeResult(HttpStatusCode.Gone, this); //Si aucun track en cours (boîte vide) - ne pas prendre en compte l'évent
                     }
                         
                     //Déterminer si parcours terminé
