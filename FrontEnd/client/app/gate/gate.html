@@ -1,0 +1,11 @@
+<header class="hero-unit" id="banner">
+  <h1>Add a new gate</h1>
+</header>
+<div class="container">
+  <br>
+  <form name="gateForm" ng-submit="create(gateModel)">
+    <formly-form model="gateModel" fields="gateFields" options="options">
+      <button type="submit" ng-disabled="gateForm.$invalid">Add a gate</button>
+    </formly-form>
+  </form>
+</div>

@@ -1,0 +1,11 @@
+<header class="hero-unit" id="banner">
+  <h1>Search</h1>
+</header>
+<div class="container">
+  <br>
+  <form name="seachForm" ng-submit="this.handleSubmit()">
+    <formly-form model="searchModel" fields="searchFields">
+      <button type="submit" ng-disabled="searchForm.$invalid">Search</button>
+    </formly-form>
+  </form>
+</div>

@@ -1,0 +1,11 @@
+<header class="hero-unit" id="banner">
+  <h1>Assign a item to a box</h1>
+</header>
+<div class="container">
+  <br>
+  <form name="this.addItemForm" ng-submit="this.handleSubmit()">
+    <formly-form model="this.addItemModel" fields="this.addItemFields" options="this.options">
+      <button type="submit" ng-disabled="this.addItemForm.$invalid">Assign a item</button>
+    </formly-form>
+  </form>
+</div>

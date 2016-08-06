@@ -1,0 +1,13 @@
+<header class="hero-unit" id="banner">
+  <h1>History viewer</h1>
+</header>
+<div class="container">
+  <br>
+  <form name="this.historyForm" ng-submit="this.handleSubmit()">
+    <formly-form model="this.historyModel" fields="this.historyFields" options="this.options">
+      <button type="submit" ng-disabled="this.historyForm.$invalid">Search</button>
+    </formly-form>
+  </form>
+
+  {{boxes}}
+</div>
