@@ -14,7 +14,7 @@ DEFAULT_PORT = "COM3";
 def as_config(dictionary):
     return config.Config(dictionary['gateId'], dictionary['route'])
 
-def initialize():
+def initialize(argv):
     f=open('config.json', 'r')
 
     print(f)
@@ -22,6 +22,16 @@ def initialize():
     print(jsonData)
 
     config=json.loads(jsonData, object_hook=as_config)
+    config.port=DEFAULT_PORT
+
+    for arg in sys.argv:
+        if "--serial:" in arg:
+            config.port=arg[9:]
+        else:
+            if "--route:" in arg:
+                config.route=arg[8:]
+
+    print "Port Serial: {0}".format(config.port)
     print "Gate ID: {0}".format(config.gateId)
     print "Gate Route: {0}".format(config.route)
 
@@ -41,16 +51,8 @@ def postEvent(config, message):
     else:
         print "code: {0}".format(r.status_code)
 
-def getSerialPort(argv):
-    for arg in sys.argv:
-        if "--serial:" in arg:
-            return arg[9:];
-
-    return DEFAULT_PORT;
-
 def main(argv):
-    config=initialize()
-    config.port=getSerialPort(argv);
+    config=initialize(argv)
 
     print "start listening on port '{0}'".format(config.port);
 
