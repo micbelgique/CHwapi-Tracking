@@ -65,8 +65,7 @@ namespace ApiTracking.Controllers
 
         public class HistoryRequest
         {
-            public int boxid { get; set; }
-            public int status { get; set; }
+            public string history { get; set; }
         }
         public class HistoryResponse
         {
@@ -74,38 +73,18 @@ namespace ApiTracking.Controllers
         }
 
         
-        [ResponseType(typeof(HistoryResponse))]
+        [ResponseType(typeof(Track))]
         public IHttpActionResult History(HistoryRequest hRequest)
         {
-            //contrôle des données passées
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             try
             {
-                HistoryResponse sResponse = new HistoryResponse();
-                List<Track> tracks = new List<Track>();                
+                Track track = db.Track.OrderByDescending<Track, int>(t => t.ID).First<Track>(t => t.Box.Barcode == hRequest.history);
 
-                //Recherche de tracks associées à la boîte
-                tracks = db.Track.Where(t => t.BoxID == hRequest.boxid).OrderBy(t => t.ID).ToList<Track>();
-                
-                //Embarquer l'history par ordre chronologique dans chaque track            
-                foreach (Track track in tracks)
-                {
-                    var trackHistory = track.TrackHistory;
-                    track.TrackHistory = trackHistory.OrderBy(th => th.ScanTime).ToList();
-                }
-
-                //Préparation réponse
-                sResponse.Tracks = tracks;                
-
-                return Ok(sResponse);
+                return Ok(track);
             }
             catch (Exception e)
             {
-                log.ErrorFormat("{0} : {1}{2} | {3}", "Erreur lors de la recherche", "GET: Api/TrackAdmin/", MethodBase.GetCurrentMethod().Name, e.ToString());
+                log.ErrorFormat("{0} : {1}{2} | {3}", "Erreur lors de la recherche historique", "GET: Api/TrackAdmin/History", MethodBase.GetCurrentMethod().Name, e.ToString());
                 return InternalServerError();
             }
         }
@@ -208,6 +187,11 @@ namespace ApiTracking.Controllers
                     }
 
                     db.Track.Add(track);
+                    db.SaveChanges();
+
+                    // Track History
+                    TrackHistory trackHistory = new TrackHistory() { ScanTime = DateTime.Now, Track = track };
+                    db.TrackHistory.Add(trackHistory);
                     db.SaveChanges();
 
                     transactionScope.Commit();
