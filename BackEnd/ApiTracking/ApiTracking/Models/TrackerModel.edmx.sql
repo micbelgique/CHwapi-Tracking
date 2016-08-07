@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 08/05/2016 23:12:07
+-- Date Created: 08/07/2016 11:24:39
 -- Generated from EDMX file: D:\Sources\VS2015\DevCamp2016-Team9\BackEnd\ApiTracking\ApiTracking\Models\TrackerModel.edmx
 -- --------------------------------------------------
 
@@ -80,7 +80,10 @@ GO
 -- Creating table 'Gate'
 CREATE TABLE [dbo].[Gate] (
     [ID] int IDENTITY(1,1) NOT NULL,
-    [Description] varchar(100)  NOT NULL
+    [Description] varchar(100)  NOT NULL,
+    [X] int  NULL,
+    [Y] int  NULL,
+    [Z] int  NULL
 );
 GO
 
@@ -106,7 +109,8 @@ GO
 CREATE TABLE [dbo].[TrackedItem] (
     [ID] int IDENTITY(1,1) NOT NULL,
     [TrackID] int  NOT NULL,
-    [ItemID] int  NOT NULL
+    [ItemID] int  NOT NULL,
+    [Quantity] int  NULL
 );
 GO
 

@@ -168,7 +168,7 @@ namespace ApiTracking.Controllers
                     Track track = new Track();
                     track.BoxID = cRequest.boxid;
                     track.GateID = cRequest.gateid;
-                    track.UserID = 5; //On n'a pas la partie d'identification donc faudra l'implémenter et passer le user dans les params
+                    track.UserID = 2; //On n'a pas la partie d'identification donc faudra l'implémenter et passer le user dans les params
                     track.Status = (int)TrackStatus.Open;
 
                     //Ajout des items
