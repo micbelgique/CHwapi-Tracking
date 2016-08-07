@@ -1,19 +1,11 @@
 'use strict';
 angular.module('frontEndApp')
-  .controller('searchComponent', function($scope, api) {
-
-    /*
-    {
-      "ID": 0,
-      "Description": "string",
-      "Barcode": "string"
-    }
-    */
+  .controller('searchComponent', function($scope, api, ngNotify) {
 
     $scope.searchModel = {};
     $scope.searchForm = {};
     $scope.searchFields = [{
-      'key': 'Description',
+      'key': 'search',
       'type': 'input',
       'templateOptions': {
         'label': 'Search a box or a item :',
@@ -25,10 +17,11 @@ angular.module('frontEndApp')
 
 
     $scope.search = function(data) {
-      api.get('searches', data).then(function(result) {
+      api.post('TrackAdmin/search', data).then(function(result) {
         if (result.status !== 'error') {
-          ngNotify.set('search Added successfuly', 'success');
-          $scope.options.resetModel()
+          $scope.searchResult = result;
+          //TO DO
+
         } else {
           ngNotify.set('Oops, something went wrong', 'error');
         }

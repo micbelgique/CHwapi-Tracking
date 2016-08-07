@@ -3,9 +3,40 @@
 </header>
 <div class="container">
   <br>
-  <form name="seachForm" ng-submit="this.handleSubmit()">
+  <form name="seachForm" ng-submit="search(searchModel)">
     <formly-form model="searchModel" fields="searchFields">
       <button type="submit" ng-disabled="searchForm.$invalid">Search</button>
     </formly-form>
   </form>
+
+
+<h2>Boxes</h2>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="x in searchResult.boxes">
+        <td>{{ x.Description }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Items</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="x in searchResult.items">
+          <td>{{ x.Description }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+
 </div>

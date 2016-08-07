@@ -3,9 +3,19 @@
 </header>
 <div class="container">
   <br>
-  <form name="this.addItemForm" ng-submit="this.handleSubmit()">
-    <formly-form model="this.addItemModel" fields="this.addItemFields" options="this.options">
-      <button type="submit" ng-disabled="this.addItemForm.$invalid">Assign a item</button>
+  <form name="searchItemForm" ng-submit="search(searchItemModel)" ng-keyup="keyPress($event.keyCode)">
+    <formly-form model="searchItemModel " fields="searchItemFields" options="options ">
+      <button type="submit" ng-disabled="searchItemForm.$invalid">Search a item</button>
+
+    </formly-form>
+  </form>
+  <form name="addItemForm" ng-submit="create(addItemModel)" ng-keyup="keyPress($event.keyCode)">
+    <formly-form model=" addItemModel " fields="addItemFields" options="options ">
+      <button type="submit" ng-hide="false">Close the box</button>
     </formly-form>
   </form>
 </div>
+
+<h1>SearchResult</h1> {{searchResult}}
+
+<h1>ItemToStore</h1> {{addItemModel}}

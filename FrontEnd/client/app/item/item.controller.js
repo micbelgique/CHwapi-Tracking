@@ -37,7 +37,7 @@ angular.module('frontEndApp')
       api.post('item', data).then(function(result) {
         if (result.status !== 'error') {
           ngNotify.set('item Added successfuly', 'success');
-          $scope.options.resetModel()
+          $scope.options.resetModel();
         } else {
           ngNotify.set('Oops, something went wrong', 'error');
         }

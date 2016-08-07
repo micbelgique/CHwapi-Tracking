@@ -1,0 +1,6 @@
+<div ng-if="to.loading.$$state.status === 0" style="line-height:34px">
+<div ng-include="'app/components/utility/loader.html'"></div>
+</div>
+<div ng-if="to.loading.$$state.status !== 0">
+  <formly-transclude></formly-transclude>
+</div>

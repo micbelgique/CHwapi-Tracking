@@ -1,67 +1,94 @@
 'use strict';
 angular.module('frontEndApp')
-  .controller('AddaddIteminaboxComponent', function($scope, api) {
+  .controller('AddaddIteminaboxComponent', function($scope, api, ngNotify) {
 
-    $scope.boxes = [];
-    api.get('box')
-      .then(function(response) {
-        if (response !== undefined) {
-          $scope.boxes = $scope.boxes.push(response);
-        }
-      });
+    $scope.searchItemModel = {};
+    $scope.searchItemForm = {};
 
-    $scope.items = [];
-    api.get('item')
-      .then(function(response) {
-        if (response !== undefined) {
-          $scope.items = $scope.items.push(response);
-        }
-      });
-
-    $scope.addItemModel = {};
+    $scope.addItemModel = {
+      'idBox': '',
+      'itemsID': [],
+      'gateID': ''
+    };
     $scope.addItemForm = {};
-    $scope.addItemFields = [{
-      "key": "boxId",
-      "type": "select",
-      "templateOptions": {
-        "label": "Select the box",
-        "options": [{
-          "name": "Box 1",
-          "value": "box1"
-        }, {
-          "name": "Box 2",
-          "value": "box2"
-        }],
-        'required': true,
-      }
-    }, {
-      "key": "itemId",
-      "type": "select",
-      "templateOptions": {
-        "label": "Select a item to add in a box",
-        "options": [{
-          "name": "Glucose",
-          "value": "glucose"
-        }, {
-          "name": "Scalpel",
-          "value": "scalpel"
-        }],
-        'required': true,
-      }
-    }, ];
 
+    $scope.searchItemFields = [{
+      'key': 'search',
+      'type': 'input',
+      'templateOptions': {
+        'label': 'Search a box or a item :',
+        'placeholder': 'Scan the bar code',
+        'required': true,
+        'focus': true
+      }
+    }];
+
+    function getJsonGate() {
+      return api.get('gate');
+    }
+
+    $scope.addItemFields = [{
+      'key': 'gateID',
+      'type': 'select',
+      'templateOptions': {
+        'label': 'Choice the destination of the box :',
+        'labelProp': 'Description',
+        'valueProp': 'ID',
+        'placeholder': 'Type or select the destination',
+        'required': true,
+        'options': [],
+      },
+      controller: /* @ngInject */ function($scope) {
+        $scope.to.loading = getJsonGate().then(function(response) {
+          $scope.to.options = response;
+          // note, the line above is shorthand for:
+          // $scope.options.templateOptions.options = data;
+          return response;
+        });
+      }
+    }];
+
+
+    $scope.search = function(data) {
+      api.post('TrackAdmin/search', data).then(function(result) {
+        var encodedState = {};
+
+        if (result.status !== 'error') {
+
+          $scope.searchResult = result;
+          if (encodedState.boxIsAssigned === true) {
+            ngNotify.set('Box already assigned, please scan a item or reset', 'error');
+          }
+          if (encodedState === undefined || encodedState.boxIsAssigned === false) {
+            if ($scope.searchResult.boxes.length > 0) {
+              $scope.addItemModel.idBox = $scope.searchResult.boxes[0].ID;
+              ngNotify.set('Box assigned, scan item', 'info');
+              encodedState.boxIsAssigned = true;
+              $scope.options.resetModel()
+            } else {
+              ngNotify.set('Scan a box before item', 'error');
+            }
+
+          } else {
+            if ($scope.searchResult.items.length > 0) {
+              $scope.addItemModel.itemsID.push($scope.searchResult.items[0].ID);
+              ngNotify.set('item assigned, scan another item or close the box', 'info');
+            } else {
+              ngNotify.set('Oops, something went wrong', 'error');
+            }
+          }
+        }
+      })
+    };
 
     $scope.create = function(data) {
-      api.post('addItems', data).then(function(result) {
+      api.post('TrackAdmin/affectbox', data).then(function(result) {
         if (result.status !== 'error') {
-          ngNotify.set('addItem Added successfuly', 'success');
-          $scope.options.resetModel()
+          //TO DO
         } else {
           ngNotify.set('Oops, something went wrong', 'error');
         }
       });
 
     };
-
-
   });

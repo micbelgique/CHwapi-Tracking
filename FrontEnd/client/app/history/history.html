@@ -3,11 +3,24 @@
 </header>
 <div class="container">
   <br>
-  <form name="this.historyForm" ng-submit="this.handleSubmit()">
-    <formly-form model="this.historyModel" fields="this.historyFields" options="this.options">
-      <button type="submit" ng-disabled="this.historyForm.$invalid">Search</button>
+  <form name="historyForm" ng-submit="search(historyModel)">
+    <formly-form model="historyModel" fields="historyFields" options="options">
+      <button type="submit" ng-disabled="historyForm.$invalid">Search</button>
     </formly-form>
   </form>
 
-  {{boxes}}
+  <h2>History</h2>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="x in searchResult.Tracks">
+        <td>{{ x.Description }}</td>
+      </tr>
+    </tbody>
+  </table>
+
 </div>

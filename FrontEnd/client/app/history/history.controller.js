@@ -1,6 +1,6 @@
 'use strict';
 angular.module('frontEndApp')
-  .controller('historyComponent', function($scope, api) {
+  .controller('historyComponent', function($scope, api, ngNotify) {
 
     /*
     {
@@ -13,7 +13,7 @@ angular.module('frontEndApp')
     $scope.historyModel = {};
     $scope.historyForm = {};
     $scope.historyFields = [{
-      'key': 'Description',
+      'key': 'history',
       'type': 'input',
       'templateOptions': {
         'label': 'View the history of a box :',
@@ -24,13 +24,17 @@ angular.module('frontEndApp')
     }];
 
 
-    $scope.boxes = [];
-    api.get('boxes')
-      .then(function(response) {
-        if (response !== undefined) {
-          $scope.boxes = $scope.boxes.push(response);
+    $scope.search = function(data) {
+      api.post('TrackAdmin/history', data).then(function(result) {
+        if (result.status !== 'error') {
+          $scope.searchResult = result;
+
+        } else {
+          ngNotify.set('Oops, something went wrong', 'error');
         }
       });
+
+    };
 
 
   });

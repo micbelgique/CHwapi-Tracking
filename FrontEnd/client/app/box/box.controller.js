@@ -17,7 +17,7 @@ angular.module('frontEndApp')
       'key': 'Barcode',
       'type': 'input',
       'templateOptions': {
-        'label': 'Scan the barcode :',
+        'label': 'Barcode :',
         'placeholder': 'Scan the barcode',
         'required': true,
         'focus': true
@@ -36,7 +36,7 @@ angular.module('frontEndApp')
     $scope.create = function(data) {
       api.post('box', data).then(function(result) {
         if (result.status !== 'error') {
-          ngNotify.set('Box Added successfuly', 'success');
+          ngNotify.set('Box added successfuly', 'success');
           $scope.options.resetModel()
         } else {
           ngNotify.set('Oops, something went wrong', 'error');

@@ -18,4 +18,7 @@ angular.module('frontEndApp', ['frontEndApp.auth', 'frontEndApp.admin', 'frontEn
     //$httpProvider.defaults.headers.common['Accept'] = 'application/json, text/javascript';
     //$httpProvider.defaults.headers.common['Content-Type'] = 'application/json; charset=utf-8';
     //$httpProvider.defaults.useXDomain = true;
-  });
+  })
+  .config(['$translateProvider', function($translateProvider) {
+    $translateProvider.useSanitizeValueStrategy('escape');
+  }]);
