@@ -78,7 +78,12 @@ namespace ApiTracking.Controllers
         {
             try
             {
-                Track track = db.Track.OrderByDescending<Track, int>(t => t.ID).First<Track>(t => t.Box.Barcode == hRequest.history);
+                Track track = db.Track.OrderByDescending<Track, int>(t => t.ID).FirstOrDefault<Track>(t => t.Box.Barcode == hRequest.history);
+
+                if (track == null)
+                {
+                    return new StatusCodeResult(HttpStatusCode.NotFound, this);
+                }
 
                 return Ok(track);
             }
