@@ -82,7 +82,7 @@ The raspberry can then sends via http the message to the backend.  In the curren
 ### Deployment
 
 - Deploy sketch on the arduino (via arduino ide)
-- install raspbian on the raspberry
+- install [raspbian](https://www.raspberrypi.org/downloads/raspbian/) on the raspberry
 - install [pySerial](https://pypi.python.org/pypi/pyserial/2.7) on raspberry 
 - install [requests](http://docs.python-requests.org/en/master/) package on raspberry
 
