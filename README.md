@@ -1,10 +1,14 @@
 # CHwapi Tracking
 
+## Common tools
+
+- [Git](https://git-scm.com/)
+
 ## Description
 
-Créer une application web permettant de créer des colis, de créer des objets, de placer des objets dans des colis en scannant leur code-barres. Il est ensuite possible de suivre le parcours des objets contenus dans des colis via des portiques RFID.
+Create a web application allowing to track packages inside Chwapi hospital via RFID gate.  Create package, objects.
 
-## DevCamp2016-Muffin Bandits
+## DevCamp2016-Muffin 'Suicidal' Bandits
 
 + Alexandre De Coster
 + Christof Hullaert
@@ -13,16 +17,80 @@ Créer une application web permettant de créer des colis, de créer des objets,
 
 ## Back End
 
-Le back end consiste simplement en une Web API exploitant la base de données de l'application. Les technologies utilisées sont:
+Web API of the application database and listener of the gates.
+
+### Technologies
 + Web API ASP.NET 4.6.1
 + Entity Framework 6
-+ Base de données SQL Express 2014
++ SQL Express 2014
 
-1. Récupérer le projet dans Visual Studio
-2. Changer la configuration du projet pour ses propres besoins, notamment pour IIS
-3. Générer la base de données depuis le schéma Entity Framework avec sa propre configuration
-4. Build le projet et le publier dans IIS
+1. Clone Visual Studio project
+2. Setup project with your options (IIS) 
+3. Create database from Entity Framework
+4. Build project and publish it in IIS
 
 ## Front End
 
-## Lecteur Electronique
+This project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 3.7.6.
+
+### Getting Started
+
+#### Techno
+
+- [Node.js and npm](nodejs.org) Node ^4.2.3, npm ^2.14.7
+- [Bower](bower.io) (`npm install --global bower`)
+- [Ruby](https://www.ruby-lang.org) and then `gem install sass`
+- [Gulp](http://gulpjs.com/) (`npm install --global gulp`)
+- [MongoDB](https://www.mongodb.org/) - Keep a running daemon with `mongod`  (only for development use)
+
+#### Developing
+
+1. Run `npm install` to install server dependencies.
+2. Run `bower install` to install front-end dependencies.
+3. Run `mongod` in a separate shell to keep an instance of the MongoDB Daemon running
+4. Run `gulp serve` to start the development server. It should automatically open the client in your browser when ready.
+
+### Build & development
+
+Run `grunt build` for building and `grunt serve` for preview.
+
+### Testing
+
+Running `npm test` will run the unit tests with karma.
+
+## RFID Gate
+
+Gate RFID to scan and track package of goods.  The gate is message agnostic since it's the backend who specify message type.
+
+### Hardware
+
+- Arduino
+- Raspberry PI 3
+- PN532 (RFID Controller )
+- Wires :-)
+
+### Methodology
+
+The PN532 scans the card and retrieve information of package on the card and communicate it in the arduino.  The Arduino via the Serial Port pass the message to the raspberry.
+The raspberry can then sends via http the message to the backend.  In the current example, we use the fourth block of the rfid card.
+
+### Technologies
+
+- Arduino Language
+- Raspbian 
+- Python
+
+### Deployment
+
+- Deploy sketch on the arduino (via arduino ide)
+- install raspbian on the raspberry
+- install pySerial package on raspberry 
+- install request package on raspberry
+
+### Usage
+
+- Launch main.py --serial:*portname* --route:*route*
+	-- *portname*: name of the serial portname
+	-- *route*; route to the backend
+- scan cards.
+
