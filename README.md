@@ -11,8 +11,8 @@ Create a web application allowing to track packages inside Chwapi hospital via R
 ## DevCamp2016-Muffin 'Suicidal' Bandits
 
 + Alexandre De Coster
-+ Christof Hullaert
-+ Alexandre Devaux
++ [Christof Hullaert](https://github.com/cHullaert)
++ [Alexandre Devaux](https://githbub.com/overworks-be)
 + Laurent Procureur
 
 ## Back End
@@ -64,10 +64,9 @@ Gate RFID to scan and track package of goods.  The gate is message agnostic sinc
 
 ### Hardware
 
-- Arduino
-- Raspberry PI 3
-- PN532 (RFID Controller )
-- Wires :-)
+- [Arduino](https://www.arduino.cc)
+- [Raspberry PI 3](https://www.raspberrypi.org/products/raspberry-pi-3-model-b/)
+- [PN532 (RFID Controller)](https://www.adafruit.com/product/789)
 
 ### Methodology
 
@@ -84,8 +83,8 @@ The raspberry can then sends via http the message to the backend.  In the curren
 
 - Deploy sketch on the arduino (via arduino ide)
 - install raspbian on the raspberry
-- install pySerial package on raspberry 
-- install request package on raspberry
+- install [pySerial](https://pypi.python.org/pypi/pyserial/2.7) on raspberry 
+- install [requests](http://docs.python-requests.org/en/master/) package on raspberry
 
 ### Usage
 
