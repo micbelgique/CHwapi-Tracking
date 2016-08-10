@@ -6,9 +6,9 @@ angular.module('frontEndApp')
     $scope.searchItemForm = {};
 
     $scope.addItemModel = {
-      'idBox': '',
+      'boxId': '',
       'itemsID': [],
-      'gateID': ''
+
     };
     $scope.addItemForm = {};
 
@@ -49,34 +49,68 @@ angular.module('frontEndApp')
     }];
 
 
+    $scope.encodedState = {};
+    $scope.encodedState.boxIsAssigned = false;
+    $scope.boxInventory = {};
+    $scope.boxInventory.items = [];
+
     $scope.search = function(data) {
       api.post('TrackAdmin/search', data).then(function(result) {
-        var encodedState = {};
-
         if (result.status !== 'error') {
 
           $scope.searchResult = result;
-          if (encodedState.boxIsAssigned === true) {
-            ngNotify.set('Box already assigned, please scan a item or reset', 'error');
-          }
-          if (encodedState === undefined || encodedState.boxIsAssigned === false) {
-            if ($scope.searchResult.boxes.length > 0) {
-              $scope.addItemModel.idBox = $scope.searchResult.boxes[0].ID;
-              ngNotify.set('Box assigned, scan item', 'info');
-              encodedState.boxIsAssigned = true;
-              $scope.options.resetModel()
-            } else {
-              ngNotify.set('Scan a box before item', 'error');
-            }
 
-          } else {
-            if ($scope.searchResult.items.length > 0) {
-              $scope.addItemModel.itemsID.push($scope.searchResult.items[0].ID);
-              ngNotify.set('item assigned, scan another item or close the box', 'info');
-            } else {
-              ngNotify.set('Oops, something went wrong', 'error');
-            }
+
+
+
+
+          if ($scope.searchResult.boxes.length > 0 && $scope.encodedState.boxIsAssigned === false) {
+            $scope.addItemModel.boxId = $scope.searchResult.boxes[0].ID;
+
+            $scope.boxInventory.box = $scope.searchResult.boxes[0];
+
+            $scope.encodedState.boxIsAssigned = true;
+            ngNotify.set('Box assigned, scan item', 'info');
+
           }
+          /*if ($scope.searchResult.boxes.length > 0 && $scope.encodedState.boxIsAssigned === true) {
+            ngNotify.set('Box already assigned, please scan a item or reset', 'error');
+
+          }*/
+
+          if ($scope.searchResult.items.length > 0 && $scope.encodedState.boxIsAssigned === false) {
+            ngNotify.set('Scan a box before item', 'error');
+          }
+          if ($scope.searchResult.items.length > 0 && $scope.encodedState.boxIsAssigned === true) {
+            $scope.addItemModel.itemsID.push($scope.searchResult.items[0].ID);
+            $scope.boxInventory.items.push($scope.searchResult.items[0]);
+            ngNotify.set('item assigned, scan another item or close the box', 'info');
+          }
+          if ($scope.searchResult.boxes.length === 0 && $scope.searchResult.items.length === 0) {
+            ngNotify.set('No result found', 'info');
+          }
+          $scope.options.resetModel()
+            /*if (encodedState.boxIsAssigned === true) {
+              ngNotify.set('Box already assigned, please scan a item or reset', 'error');
+            }
+            if (encodedState === undefined || encodedState.boxIsAssigned === false) {
+              if ($scope.searchResult.boxes.length > 0) {
+                $scope.addItemModel.boxId = $scope.searchResult.boxes[0].ID;
+                ngNotify.set('Box assigned, scan item', 'info');
+                encodedState.boxIsAssigned = true;
+                $scope.options.resetModel()
+              } else {
+                ngNotify.set('Scan a box before item', 'error');
+              }
+
+            } else {
+              if ($scope.searchResult.items.length > 0) {
+                $scope.addItemModel.itemsID.push($scope.searchResult.items[0].ID);
+                ngNotify.set('item assigned, scan another item or close the box', 'info');
+              } else {
+                ngNotify.set('Oops, something went wrong', 'error');
+              }
+            }*/
         }
       })
     };
@@ -84,7 +118,11 @@ angular.module('frontEndApp')
     $scope.create = function(data) {
       api.post('TrackAdmin/affectbox', data).then(function(result) {
         if (result.status !== 'error') {
+
           //TO DO
+          $scope.boxInventory = {};
+
+          ngNotify.set('Box closed successfuly', 'info');
         } else {
           ngNotify.set('Oops, something went wrong', 'error');
         }

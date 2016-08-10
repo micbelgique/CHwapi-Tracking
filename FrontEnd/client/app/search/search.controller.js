@@ -18,8 +18,12 @@ angular.module('frontEndApp')
 
     $scope.search = function(data) {
       api.post('TrackAdmin/search', data).then(function(result) {
-        if (result.status !== 'error') {
+        if ((result.status !== 'error')) {
+          //if ((result.status !== 'error') && (result.status)) {
+
+
           $scope.searchResult = result;
+          $scope.options.resetModel();
           //TO DO
 
         } else {

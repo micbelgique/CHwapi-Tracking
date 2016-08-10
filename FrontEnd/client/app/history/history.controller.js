@@ -28,6 +28,7 @@ angular.module('frontEndApp')
       api.post('TrackAdmin/history', data).then(function(result) {
         if (result.status !== 'error') {
           $scope.searchResult = result;
+          $scope.options.resetModel();
 
         } else {
           ngNotify.set('Oops, something went wrong', 'error');

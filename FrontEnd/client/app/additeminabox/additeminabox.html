@@ -8,14 +8,34 @@
       <button type="submit" ng-disabled="searchItemForm.$invalid">Search a item</button>
 
     </formly-form>
+    <br>
   </form>
   <form name="addItemForm" ng-submit="create(addItemModel)" ng-keyup="keyPress($event.keyCode)">
     <formly-form model=" addItemModel " fields="addItemFields" options="options ">
       <button type="submit" ng-hide="false">Close the box</button>
     </formly-form>
   </form>
+
+
+  <div ng-hide="boxInventory.box === undefined" class="boxes">
+    <h2>Box : {{boxInventory.box.Barcode}} - {{boxInventory.box.Description}}</h2>
+  </div>
+
+  <div ng-hide=" boxInventory.items.length === 0" class="boxes">
+    <h2>Items :</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Barcode</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="x in boxInventory.items">
+          <td>{{ x.Barcode }}</td>
+          <td>{{ x.Description }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-
-<h1>SearchResult</h1> {{searchResult}}
-
-<h1>ItemToStore</h1> {{addItemModel}}
