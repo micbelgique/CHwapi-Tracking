@@ -95,7 +95,25 @@ The raspberry can then sends via http the message to the backend.  In the curren
 
 ### Images
 
-<div class="row">
-  <div class="col-md-6"><img src="https://github.com/micbelgique/DevCamp2016-Team9/blob/master/FrontEnd/client/assets/images/Capture1.png" alt="Capture1" /></div>
-  <div class="col-md-6"><img src="https://github.com/micbelgique/DevCamp2016-Team9/blob/master/FrontEnd/client/assets/images/Capture2.png" alt="Capture2" /></div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6"><img src="https://github.com/micbelgique/DevCamp2016-Team9/blob/master/FrontEnd/client/assets/images/Capture1.png" alt="Capture1"/></div>
+    <div class="col-md-6"><img src="https://github.com/micbelgique/DevCamp2016-Team9/blob/master/FrontEnd/client/assets/images/Capture2.png" alt="Capture2"/></div>
+  </div>
+  <div class="row">
+    <div class="col-md-6"><img src="https://github.com/micbelgique/DevCamp2016-Team9/blob/master/FrontEnd/client/assets/images/Capture3.png" alt="Capture3"/></div>
+    <div class="col-md-6"><img src="https://github.com/micbelgique/DevCamp2016-Team9/blob/master/FrontEnd/client/assets/images/Capture4.png" alt="Capture4"/></div>
+  </div>
+  <div class="row">
+    <div class="col-md-6"><img src="https://github.com/micbelgique/DevCamp2016-Team9/blob/master/FrontEnd/client/assets/images/Capture5.png" alt="Capture5"/></div>
+    <div class="col-md-6"><img src="https://github.com/micbelgique/DevCamp2016-Team9/blob/master/FrontEnd/client/assets/images/Capture6.png" alt="Capture6"/></div>
+  </div>
+  <div class="row">
+    <div class="col-md-6"><img src="https://github.com/micbelgique/DevCamp2016-Team9/blob/master/FrontEnd/client/assets/images/Capture7.png" alt="Capture7"/></div>
+    <div class="col-md-6"><img src="https://github.com/micbelgique/DevCamp2016-Team9/blob/master/FrontEnd/client/assets/images/Capture8.png" alt="Capture8"/></div>
+  </div>
+  <div class="row">
+    <div class="col-md-6"><img src="https://github.com/micbelgique/DevCamp2016-Team9/blob/master/FrontEnd/client/assets/images/Capture9.png" alt="Capture9"/></div>
+    <div class="col-md-6"><img src="https://github.com/micbelgique/DevCamp2016-Team9/blob/master/FrontEnd/client/assets/images/Capture10.png" alt="Capture10"/></div>
+  </div>
 </div>
