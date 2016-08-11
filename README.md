@@ -10,9 +10,9 @@ Create a web application allowing to track packages inside Chwapi hospital via R
 
 ## DevCamp2016-Muffin 'Suicidal' Bandits
 
-+ Alexandre De Coster
++ [Alexandre De Coster](https://githbub.com/overworks-be)
 + [Christof Hullaert](https://github.com/cHullaert)
-+ [Alexandre Devaux](https://githbub.com/overworks-be)
++ Alexandre Devaux
 + Laurent Procureur
 
 ## Back End
@@ -39,7 +39,6 @@ This project was generated with the [Angular Full-Stack Generator](https://githu
 
 - [Node.js and npm](nodejs.org) Node ^4.2.3, npm ^2.14.7
 - [Bower](bower.io) (`npm install --global bower`)
-- [Ruby](https://www.ruby-lang.org) and then `gem install sass`
 - [Gulp](http://gulpjs.com/) (`npm install --global gulp`)
 - [MongoDB](https://www.mongodb.org/) - Keep a running daemon with `mongod`  (only for development use)
 
