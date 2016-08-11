@@ -93,3 +93,9 @@ The raspberry can then sends via http the message to the backend.  In the curren
 	-- *route*; route to the backend
 - scan cards.
 
+### Images
+
+<div class="row">
+  <div class="col-md-6"><img src="https://github.com/micbelgique/DevCamp2016-Team9/blob/master/FrontEnd/client/assets/images/Capture1.png" alt="Capture1" /></div>
+  <div class="col-md-6"><img src="https://github.com/micbelgique/DevCamp2016-Team9/blob/master/FrontEnd/client/assets/images/Capture2.png" alt="Capture2" /></div>
+</div>
